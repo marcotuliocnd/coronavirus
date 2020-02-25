@@ -29,6 +29,7 @@ app.use(cors(corsConfig));
 app.use(express.json({ extended: false }));
 
 app.use('/infecteds', require('./routes/InfectedRoutes'));
+app.use('/survivors', require('./routes/SurvivorRoutes'));
 
 if (process.env.NODE_ENV === 'development') {
   app.listen(process.env.PORT, () => {
