@@ -41,14 +41,14 @@ const login = async (req, res) => {
     if (!user) {
       return res
         .status(401)
-        .json({ success: false, data: 'Email ou senha incorretos' });
+        .json({ success: false, data: 'Usuário ou senha incorretos' });
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
       return res
         .status(401)
-        .json({ success: false, data: 'Email ou senha incorretos' });
+        .json({ success: false, data: 'Usuário ou senha incorretos' });
     }
 
     delete user._doc.password;
