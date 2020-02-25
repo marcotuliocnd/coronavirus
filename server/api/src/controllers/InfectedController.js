@@ -23,8 +23,8 @@ const list = async (req, res) => {
 };
 
 const store = async (req, res) => {
-  const { country, total } = req.body;
   try {
+    const { country, total } = req.body;
     const data = await InfectedModel
       .findOneAndUpdate(
         { country },
