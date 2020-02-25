@@ -22,6 +22,28 @@ const list = async (req, res) => {
   }
 };
 
+const store = async (req, res) => {
+  const { country, total } = req.body;
+  try {
+    const data = await InfectedModel
+      .findOneAndUpdate(
+        { country },
+        { country, total },
+        { upsert: true, new: true },
+      );
+
+    return res
+      .status(200)
+      .json({ success: true, data });
+  } catch (err) {
+    console.error(err.message);
+    return res
+      .status(500)
+      .json({ success: false, data: 'Internal Server Error' });
+  }
+};
+
 module.exports = {
   list,
+  store,
 };
