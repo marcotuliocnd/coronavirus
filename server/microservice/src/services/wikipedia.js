@@ -3,23 +3,22 @@ const scraper = require('table-scraper');
 const structure = (country, amount) => ({ country, amount });
 
 const parseData = (country) => {
-  let countryInfo = [];
-
-  if (Object.keys(country).length !== 5){
-    return countryInfo;
+  const countryInfo = [];
+  if (Object.keys(country).length !== 5) {
+    return;
   }
 
-  let countryName = country[Object.keys(country)[0]];
-  let countryInfected = country[Object.keys(country)[1]] || 0;
-  let countryDeaths = country[Object.keys(country)[2]] || 0;
-  let countrySurvivors = country[Object.keys(country)[3]] || 0;
+  const countryName = country[Object.keys(country)[0]].split('[')[0] || '';
+  const countryInfected = country[Object.keys(country)[1]] || 0;
+  const countryDeaths = country[Object.keys(country)[2]] || 0;
+  const countrySurvivors = country[Object.keys(country)[3]] || 0;
 
   countryInfo.push(structure(countryName, parseInt(countryInfected, 10)));
   countryInfo.push(structure(countryName, parseInt(countryDeaths, 10)));
   countryInfo.push(structure(countryName, parseInt(countrySurvivors, 10)));
 
   return countryInfo;
-}
+};
 
 const getTable = async () => {
   try {
@@ -33,13 +32,21 @@ const getTable = async () => {
       }
     }
     return table;
-  } catch(err) {
+  } catch (err) {
     console.error(err.message);
     return [];
   }
 };
 
-modules.export = {
-  getTable,
-  parseData
-}
+const getParsedData = async () => {
+  try {
+    const wikipediaData = await getTable();
+    const parsedData = wikipediaData.map((item) => (parseData(item)));
+    return parsedData.filter((data) => data !== undefined);
+  } catch (err) {
+    console.error(err.message);
+    return [];
+  }
+};
+
+module.exports = { getParsedData };
