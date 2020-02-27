@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  corona-mongodb:
+    container_name: "corona-production-mongodb"
+    image: "mongo:4.2"
+    ports:
+      - "27117:27017"
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: pCdPy9DLaKbnqBH7
+
+  corona-api:
+    container_name: "corona-production-api"
+    image: node:10
+    volumes:
+      - ./api:/home/node/app
+    working_dir: /home/node/app
+    links:
+      - corona-mongodb:mongodb
+    depends_on:
+      - corona-mongodb
+    expose:
+      - "8700"
+    ports:
+      - 8700:8700
+    command: bash -c 'npm install && npm start'
