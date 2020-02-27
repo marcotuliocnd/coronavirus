@@ -1,9 +1,9 @@
 const wikipediaService = require('./services/wikipedia');
-
+const APIService = require('./services/sendToAPI');
 
 const cron = async () => {
   const allCountriesData = await wikipediaService.getParsedData();
-  console.log(allCountriesData);
+  APIService.postCountriesDataToAPI(allCountriesData);
 };
 
 cron();
