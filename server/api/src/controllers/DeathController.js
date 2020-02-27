@@ -1,3 +1,5 @@
+const { startOfDay, endOfDay } = require('date-fns');
+
 const DeathModel = require('../models/Deaths');
 
 const list = async (req, res) => {
@@ -25,9 +27,10 @@ const list = async (req, res) => {
 const store = async (req, res) => {
   try {
     const { country, total } = req.body;
+    const today = new Date();
     const data = await DeathModel
       .findOneAndUpdate(
-        { country },
+        { country, updatedAt: { $gte: startOfDay(today), $lt: endOfDay(today) } },
         { country, total },
         { upsert: true, new: true },
       );
