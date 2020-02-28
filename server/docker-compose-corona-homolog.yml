@@ -22,7 +22,7 @@ services:
     depends_on:
       - corona-mongodb
     expose:
-      - "8700"
+      - "3333"
     ports:
-      - 8700:8700
+      - 3333:3333
     command: bash -c 'npm install && npm start'
