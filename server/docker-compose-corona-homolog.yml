@@ -4,6 +4,8 @@ services:
   corona-mongodb:
     container_name: "corona-production-mongodb"
     image: "mongo:4.2"
+    expose:
+      - "27017"
     ports:
       - "27017:27017"
     restart: always
