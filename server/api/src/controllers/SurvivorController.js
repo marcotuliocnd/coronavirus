@@ -6,6 +6,7 @@ const list = async (req, res) => {
   const { country } = req.query;
   const today = new Date();
   const query = {
+    total: { $ne: 0 },
     updatedAt: { $gte: startOfDay(today), $lt: endOfDay(today) },
   };
   if (country) {
