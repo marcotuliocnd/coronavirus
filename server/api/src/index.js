@@ -9,7 +9,6 @@ const helmet = require('helmet');
 
 dotenv.config();
 
-console.log(process.env.MONGOURI);
 mongoose.connect(process.env.MONGOURI, {
   useNewUrlParser: true,
   useCreateIndex: true,
