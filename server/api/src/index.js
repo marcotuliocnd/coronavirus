@@ -1,5 +1,4 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
@@ -7,14 +6,11 @@ const fs = require('fs');
 const https = require('https');
 const helmet = require('helmet');
 
+const connectDb = require('./config/database');
+
 dotenv.config();
 
-mongoose.connect(process.env.MONGOURI, {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-  useUnifiedTopology: true,
-});
+connectDb();
 
 const app = express();
 
