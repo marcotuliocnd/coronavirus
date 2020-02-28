@@ -4,7 +4,10 @@ const DeathModel = require('../models/Deaths');
 
 const list = async (req, res) => {
   const { country } = req.query;
-  const query = {};
+  const today = new Date();
+  const query = {
+    updatedAt: { $gte: startOfDay(today), $lt: endOfDay(today) },
+  };
   if (country) {
     query.country = country;
   }
