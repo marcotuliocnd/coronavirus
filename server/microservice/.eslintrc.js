@@ -18,5 +18,6 @@ module.exports = {
     'no-console': 'off',
     'no-restricted-syntax': 'off',
     'consistent-return': 'off',
+    'no-await-in-loop': 'off',
   },
 };
