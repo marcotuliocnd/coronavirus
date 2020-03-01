@@ -14,6 +14,7 @@ cron.schedule('*/5 * * * *', async () => {
 const teste = async () => {
   console.log('Started to fetch data');
   const allCountriesData = await Wikipedia.getParsedData();
+  console.log(allCountriesData);
   Api.postCountriesDataToAPI(allCountriesData);
   console.log('Finished fetching data');
 };
