@@ -1,0 +1,24 @@
+.total-infecteds {
+}
+
+.total-infecteds--Inner {
+  font-size: .7rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.total-infecteds--Inner h1 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.total-infecteds--Inner h2 {
+  font-size: 1rem;
+}
+
+.total-infecteds--Inner h2 span {
+  font-size: .7rem;
+}

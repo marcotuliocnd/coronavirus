@@ -1,0 +1,29 @@
+.total-deaths {
+}
+
+.total-deaths--Inner {
+  font-size: .7rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.total-deaths--Inner .box-title {
+  color: #247BA0;
+  font-size: 1rem;
+}
+
+.total-deaths--Inner h1 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.total-deaths--Inner h2 {
+  font-size: 1rem;
+}
+
+.total-deaths--Inner h2 span {
+  font-size: .7rem;
+}
