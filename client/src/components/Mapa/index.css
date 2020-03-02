@@ -1,0 +1,17 @@
+.map {
+  height: 500px;
+  max-height: 500px;
+}
+
+.map--Inner {
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+}
+
+.map--Inner iframe {
+  border: none;
+  height: 500px;
+}

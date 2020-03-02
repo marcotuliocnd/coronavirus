@@ -1,0 +1,19 @@
+.list-infecteds {
+  height: 500px;
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+.list-infecteds--Inner {
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.list-infecteds--Inner ul {
+  list-style: none;
+}
+

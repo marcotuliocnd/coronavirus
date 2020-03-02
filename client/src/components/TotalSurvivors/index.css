@@ -1,0 +1,26 @@
+.total-survivors {
+  height: 300px;
+  max-height: 300px;
+}
+
+.total-survivors--Inner {
+  font-size: .7rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  padding: 100px 20px;
+}
+
+.total-survivors--Inner h1 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.total-survivors--Inner h2 {
+  font-size: 1rem;
+}
+
+.total-survivors--Inner h2 span {
+  font-size: .7rem;
+}
