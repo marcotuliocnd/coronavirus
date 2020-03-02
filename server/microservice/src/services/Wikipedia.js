@@ -2,22 +2,24 @@ const scraper = require('table-scraper');
 
 const structure = (country, total) => ({ country, total });
 
-const parseData = (country) => {
-  const countryInfo = [];
-  if (Object.keys(country).length !== 5) {
+const parseData = (countryInfo) => {
+  if (Object.keys(countryInfo).length !== 5) {
     return;
   }
 
-  const countryName = country[Object.keys(country)[0]].split('[')[0] || '';
-  const countryInfected = country[Object.keys(country)[1]].replace('.', '') || 0;
-  const countryDeaths = country[Object.keys(country)[2]].replace('.', '') || 0;
-  const countrySurvivors = country[Object.keys(country)[3]].replace('.', '') || 0;
+  const country = countryInfo[Object.keys(countryInfo)[0]].split('[')[0] || '';
+  const infecteds = countryInfo[Object.keys(countryInfo)[1]].replace('.', '') || 0;
+  const deaths = countryInfo[Object.keys(countryInfo)[2]].replace('.', '') || 0;
+  const survivors = countryInfo[Object.keys(countryInfo)[3]].replace('.', '') || 0;
+  
+  const parsedCountryInfo = {
+    country,
+    totalInfecteds: parseInt(infecteds, 10),
+    totalDeaths: parseInt(deaths, 10),
+    totalSurvivors: parseInt(survivors, 10),
+  };
 
-  countryInfo.push(structure(countryName, parseInt(countryInfected, 10)));
-  countryInfo.push(structure(countryName, parseInt(countryDeaths, 10)));
-  countryInfo.push(structure(countryName, parseInt(countrySurvivors, 10)));
-
-  return countryInfo;
+  return parsedCountryInfo;
 };
 
 const getTable = async () => {
