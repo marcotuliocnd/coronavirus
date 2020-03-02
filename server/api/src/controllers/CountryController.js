@@ -32,7 +32,7 @@ const store = async (req, res) => {
     const {
       country, totalDeaths, totalInfecteds, totalSurvivors,
     } = req.body;
-    if (!totalDeaths || !totalInfecteds || !totalSurvivors) {
+    if (!(totalDeaths && totalInfecteds && totalSurvivors)) {
       return res
         .status(406)
         .json({ success: false, data: 'Requisição está faltando informações' });
