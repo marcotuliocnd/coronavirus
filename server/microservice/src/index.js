@@ -9,5 +9,9 @@ cron.schedule('*/5 * * * *', async () => {
   const allCountriesData = await Wikipedia.getParsedData();
   Api.postCountriesDataToAPI(allCountriesData);
   console.log('Finished fetching data');
+<<<<<<< HEAD
 });
 
+=======
+});
+>>>>>>> dev

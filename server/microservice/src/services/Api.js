@@ -13,9 +13,7 @@ const postCountriesDataToAPI = async (countriesData) => {
     index += 1;
     console.log(`POSTING ${index}/${countriesData.length} COUNTRIES`);
     try {
-      await api.post('/infecteds', country[0]);
-      await api.post('/deaths', country[1]);
-      await api.post('/survivors', country[2]);
+      await api.post('/countries', country);
       console.log('SUCCESS');
     } catch (err) {
       console.log('ERROR');
