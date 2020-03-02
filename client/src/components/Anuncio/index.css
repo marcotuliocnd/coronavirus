@@ -1,0 +1,16 @@
+.ad {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 150px;
+  height: 150px;
+  margin-top: 2rem;
+}
+
+.ad--Inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 728px;
+  height: 90px;
+}

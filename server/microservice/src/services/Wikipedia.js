@@ -23,7 +23,7 @@ const parseData = (country) => {
 const getTable = async () => {
   try {
     const tableData = await scraper
-      .get('https://pt.wikipedia.org/wiki/Surto_de_2019%E2%80%932020_de_coronav%C3%ADrus_por_pa%C3%ADs');
+      .get('https://pt.wikipedia.org/wiki/Predefini%C3%A7%C3%A3o:2019-20_Coronav%C3%ADrus_de_Wuhan/Mundo');
     let table = [];
     for (const tableEach of tableData) {
       if (tableEach.length > 20) {

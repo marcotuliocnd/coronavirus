@@ -10,3 +10,4 @@ cron.schedule('*/5 * * * *', async () => {
   Api.postCountriesDataToAPI(allCountriesData);
   console.log('Finished fetching data');
 });
+

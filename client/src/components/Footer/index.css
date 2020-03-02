@@ -1,0 +1,31 @@
+.footer {
+  background: #247BA0;
+  color: #fff;
+  margin-top: 1rem;
+}
+
+.footer--Inner {
+  font-size: .8rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 15px 200px 5px;
+}
+
+.footer--Inner h1 {
+  font-weight: bold;
+  font-size: .8rem;
+}
+
+.politics {
+  color: #fff !important;
+}
+
+@media all and (max-width: 992px) {
+  .footer--Inner {
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 5px;
+  }
+}
