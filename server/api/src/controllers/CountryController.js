@@ -2,6 +2,13 @@ const { startOfDay, endOfDay } = require('date-fns');
 
 const CountryModel = require('../models/Country');
 
+const checkIfValuesAreValid = (country) => {
+  if(country.totalDeaths >= 0 && country.totalInfecteds >= 0 && country.totalSurvivors >= 0){
+    return true;
+  }
+  return false;
+}
+
 const list = async (req, res) => {
   const { country } = req.query;
   const today = new Date();
@@ -32,7 +39,11 @@ const store = async (req, res) => {
     const {
       country, totalDeaths, totalInfecteds, totalSurvivors,
     } = req.body;
+<<<<<<< HEAD
     if (!(totalDeaths && totalInfecteds && totalSurvivors)) {
+=======
+    if (!checkIfValuesAreValid(req.body)) {
+>>>>>>> dev
       return res
         .status(406)
         .json({ success: false, data: 'Requisição está faltando informações' });
