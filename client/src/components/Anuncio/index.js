@@ -5,7 +5,7 @@ import './index.css';
 const Anuncio = () => (
   <div className="ad">
     <div className="ad--Inner sombra-projetada">
-      <h1>[ AQUI VAI UM ANÚNCIO ]</h1>
+      <h2>[ AQUI VAI UM ANÚNCIO ]</h2>
     </div>
   </div>
 );

@@ -15,15 +15,15 @@
   font-size: 1rem;
 }
 
-.total-deaths--Inner h1 {
+.total-deaths--Inner h2 {
   font-size: 2rem;
   font-weight: bold;
 }
 
-.total-deaths--Inner h2 {
+.total-deaths--Inner h3 {
   font-size: 1rem;
 }
 
-.total-deaths--Inner h2 span {
+.total-deaths--Inner h3 span {
   font-size: .7rem;
 }

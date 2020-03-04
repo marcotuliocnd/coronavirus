@@ -9,17 +9,18 @@
 
 body {
   font-family: 'Montserrat', sans-serif;
-  background-color:#FDFDFF;
+  background-color:#ede9e0;
   color:#393D3F;
 }
 
 .sombra-projetada {
-  max-height: 150px;
-  height: 150px;
+  min-height: 150px;
   margin-top: 2rem;
+  background: #fff;
   -webkit-box-shadow: 0px 0px 24px 8px rgba(0,0,0,0.1);
   -moz-box-shadow: 0px 0px 24px 8px rgba(0,0,0,0.1);
   box-shadow: 0px 0px 24px 8px rgba(0,0,0,0.1);
+  border-radius: 5px;
 }
 
 .sombra {
@@ -27,6 +28,8 @@ body {
   -webkit-box-shadow: 0px 0px 24px 8px rgba(0,0,0,0.1);
   -moz-box-shadow: 0px 0px 24px 8px rgba(0,0,0,0.1);
   box-shadow: 0px 0px 24px 8px rgba(0,0,0,0.1);
+  background: #fff;
+  border-radius: 5px;
 }
 
 .box-title {

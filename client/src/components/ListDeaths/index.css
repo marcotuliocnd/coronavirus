@@ -16,4 +16,6 @@
 .list-deaths--Inner ul {
   list-style: none;
 }
-
+.list-deaths--Inner li {
+  cursor: pointer;
+}

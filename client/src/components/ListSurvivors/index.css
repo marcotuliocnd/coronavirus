@@ -17,3 +17,6 @@
   list-style: none;
 }
 
+.list-survivors--Inner li {
+  cursor: pointer;
+}

@@ -1,16 +1,17 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './index.css';
 
 const Footer = () => (
   <div className="footer">
     <div className="footer--Inner">
-      <h1>
+      <h2>
         TODOS OS DIREITOS RESERVADOS - 2020
-      </h1>
-      <a className="politics" href="#!">
+      </h2>
+      <Link className="politics" to="/termos">
         POLÍTICA DE PRIVACIDADE
-      </a>
+      </Link>
     </div>
   </div>
 );
