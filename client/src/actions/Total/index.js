@@ -9,7 +9,6 @@ const loadTotal = (country) => async (dispatch) => {
   try {
     if (country) {
       const response = await axios.get(`${environment.apiUrl}/countries?country=${country}`);
-      console.log(response.data);
       dispatch({
         type: TOTAL_SUCCESS,
         payload: response.data.data,
