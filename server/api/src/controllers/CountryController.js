@@ -3,20 +3,22 @@ const { startOfDay, endOfDay } = require('date-fns');
 const CountryModel = require('../models/Country');
 
 const checkIfValuesAreValid = (country) => {
-  if(country.totalDeaths >= 0 && country.totalInfecteds >= 0 && country.totalSurvivors >= 0){
+  if (country.totalDeaths >= 0 && country.totalInfecteds >= 0 && country.totalSurvivors >= 0) {
     return true;
   }
   return false;
-}
+};
 
 const list = async (req, res) => {
   const { country } = req.query;
   const today = new Date();
-  const query = {
-    updatedAt: { $gte: startOfDay(today), $lt: endOfDay(today) },
-  };
+  let query = {};
   if (country) {
-    query.country = country;
+    query = { country };
+  } else {
+    query = {
+      updatedAt: { $gte: startOfDay(today), $lt: endOfDay(today) },
+    };
   }
   try {
     const data = await CountryModel
