@@ -27,14 +27,15 @@ const store = async (req, res) => {
       || !req.body.description
       || !req.body.content
       || !req.body.tags
-      || !req.body.image
     ) {
       return res
         .status(400)
         .json({ success: false, data: 'O artigo está faltando informações' });
     }
+    const { body } = req;
+    body.image = `${process.env.API}/${req.file.path}`;
 
-    const data = await ArticleModel.create(req.body);
+    const data = await ArticleModel.create(body);
     return res
       .status(200)
       .json({ success: true, data });

@@ -5,7 +5,6 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const fs = require('fs');
 const https = require('https');
-const helmet = require('helmet');
 
 dotenv.config();
 
@@ -23,10 +22,10 @@ const corsConfig = {
   methods: 'POST, GET, PUT, DELETE, OPTIONS, PATCH',
 };
 
-app.use(helmet());
-app.use(bodyParser.json({ extended: true }));
+app.use('/public/', express.static('public'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors(corsConfig));
-app.use(express.json({ extended: false }));
 
 app.use('/infecteds', require('./routes/InfectedRoutes'));
 app.use('/survivors', require('./routes/SurvivorRoutes'));
