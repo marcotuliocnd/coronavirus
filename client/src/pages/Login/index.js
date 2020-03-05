@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import './index.css';
 
 import { login } from '../../actions/Auth';
@@ -8,7 +9,7 @@ import { login } from '../../actions/Auth';
 import Logo from '../../assets/images/temp-logo.webp';
 import Alert from '../../components/Alert';
 
-const Login = ({ login }) => {
+const Login = ({ login, authState }) => {
   const [loginFormData, setLoginForm] = useState({
     username: '', password: '', doingLogin: false,
   });
@@ -18,6 +19,10 @@ const Login = ({ login }) => {
     ...loginFormData,
     [event.target.name]: event.target.value,
   });
+
+  if (authState.isAuthenticated) {
+    return <Redirect to="/painel" />
+  }
 
   const doLogin = async (event) => {
     event.preventDefault();
@@ -47,4 +52,8 @@ Login.propTypes = {
   login: PropTypes.func.isRequired,
 };
 
-export default connect(null, { login })(Login);
+const mapStateToProps = (state) => ({
+  authState: state.authReducer,
+});
+
+export default connect(mapStateToProps, { login })(Login);
