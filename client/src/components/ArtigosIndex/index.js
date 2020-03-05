@@ -41,7 +41,7 @@ const ArtigosIndex = () => {
   return (
     <div className="artigos sombra">
       <div className="artigos--Inner">
-        <h1 className="box-title articles-title">Confira as últimas notícias</h1>
+        <h2 className="box-title articles-title">Confira as últimas notícias</h2>
         <ul className="list">
           { listArtigosElement }
         </ul>

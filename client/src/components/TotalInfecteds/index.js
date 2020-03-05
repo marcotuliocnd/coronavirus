@@ -1,46 +1,45 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import moment from 'moment';
+import 'moment/locale/pt-br';
+
+
 import './index.css';
 
-const TotalInfecteds = () => {
-  const countryData = [
-    { country: 'China', total: 70000 },
-    { country: 'Coreia do Sul', total: 70000 },
-    { country: 'Japão', total: 70000 },
-    { country: 'Égito', total: 70000 },
-    { country: 'Alemanha', total: 70000 },
-    { country: 'Brasil', total: 70000 },
-    { country: 'Estados Unidos', total: 70000 },
-    { country: 'Chile', total: 70000 },
-    { country: 'Venezuela', total: 70000 },
-    { country: 'México', total: 70000 },
-    { country: 'Transporte internacional', total: 70000 },
-    { country: 'Coreia do Norte', total: 70000 },
-    { country: 'Argentina', total: 70000 },
-    { country: 'Paquistão', total: 70000 },
-  ];
-
-  let totalInfecteds = 0;
-  countryData.forEach((country) => {
-    totalInfecteds += country.total;
-  });
+const TotalInfecteds = ({ totalState }) => {
+  const infecteds = totalState.data[0].totalInfecteds;
 
   function formatNumber(number) {
     return new Intl.NumberFormat().format(number);
   }
 
+  function formatDate(datetime) {
+    moment.locale('pt-br');
+    return moment(datetime).format('DD [de] MMMM [às] hh:mm');
+  }
+
   return (
     <div className="total-infecteds sombra-projetada">
       <div className="total-infecteds--Inner">
-        <h1 className="box-title">Total de casos confirmados</h1>
-        <h1 className="text-danger">{ formatNumber(totalInfecteds) }</h1>
-        <h2>
+        <h2 className="box-title">Total de casos confirmados</h2>
+        <h2 className="text-danger">{ formatNumber(infecteds) }</h2>
+        <h3>
           Ultima atualização em:
           <br />
-          <span>20 de Janeiro de 2020 as 19:00</span>
-        </h2>
+          <span>{ formatDate(totalState.data[0].updatedAt) }</span>
+        </h3>
       </div>
     </div>
   );
 };
 
-export default TotalInfecteds;
+TotalInfecteds.propTypes = {
+  totalState: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  totalState: state.totalReducer,
+});
+
+export default connect(mapStateToProps)(TotalInfecteds);

@@ -17,3 +17,7 @@
   list-style: none;
 }
 
+.list-infecteds--Inner li {
+  cursor: pointer;
+}
+

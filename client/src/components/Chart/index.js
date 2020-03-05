@@ -1,9 +1,27 @@
 import React from 'react';
 import ReactChart from 'react-apexcharts';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import moment from 'moment';
+import 'moment/locale/pt-br';
 
 import './index.css';
 
-const Chart = () => {
+const Chart = ({ totalState }) => {
+  const countryData = totalState.data.sort((a, b) => {
+    if (a.createdAt < b.createdAt) {
+      return -1;
+    }
+    if (a.createdAt > b.createdAt) {
+      return 1;
+    }
+
+    return 0;
+  });
+  const categories = countryData.map((day) => moment(day.createdAt).format('DD/MM/YYYY'));
+  const infecteds = countryData.map((day) => day.totalInfecteds);
+  const survivors = countryData.map((day) => day.totalSurvivors);
+  const deaths = countryData.map((day) => day.totalDeaths);
   const options = {
     chart: {
       toolbar: {
@@ -15,22 +33,22 @@ const Chart = () => {
       id: 'basic-bar',
     },
     xaxis: {
-      categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
+      categories,
     },
   };
 
   const series = [
     {
       name: 'Confirmados',
-      data: [30, 40, 45, 50, 49, 60, 70, 91],
+      data: infecteds,
     },
     {
       name: 'Recuperados',
-      data: [14, 23, 15, 30, 43, 45, 56, 90],
+      data: survivors,
     },
     {
       name: 'Mortos',
-      data: [1, 2, 2, 2, 3, 4, 5, 6],
+      data: deaths,
     },
   ];
 
@@ -48,4 +66,13 @@ const Chart = () => {
     </div>
   );
 };
-export default Chart;
+
+Chart.propTypes = {
+  totalState: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  totalState: state.totalReducer,
+});
+
+export default connect(mapStateToProps)(Chart);

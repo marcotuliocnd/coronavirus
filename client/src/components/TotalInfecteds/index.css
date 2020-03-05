@@ -10,15 +10,15 @@
   padding: 20px;
 }
 
-.total-infecteds--Inner h1 {
+.total-infecteds--Inner h2 {
   font-size: 2rem;
   font-weight: bold;
 }
 
-.total-infecteds--Inner h2 {
+.total-infecteds--Inner h3 {
   font-size: 1rem;
 }
 
-.total-infecteds--Inner h2 span {
+.total-infecteds--Inner h3 span {
   font-size: .7rem;
 }

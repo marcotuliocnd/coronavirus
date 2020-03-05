@@ -13,8 +13,8 @@ const NotFound = () => (
       className="pageNotFoundImage"
     />
     <div className="pageNotFoundText">
-      <h1 className="error-text">404</h1>
-      <h1>Parece que você se perdeu...</h1>
+      <h2 className="error-text">404</h2>
+      <h2>Parece que você se perdeu...</h2>
       <p className="error-description">A página que você está procurando não existe, ou foi movida de lugar</p>
       <Link className="go-home sombra" to="/">Voltar para home</Link>
     </div>

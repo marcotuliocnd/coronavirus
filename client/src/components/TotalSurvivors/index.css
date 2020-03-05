@@ -12,15 +12,15 @@
   padding: 100px 20px;
 }
 
-.total-survivors--Inner h1 {
+.total-survivors--Inner h2 {
   font-size: 2rem;
   font-weight: bold;
 }
 
-.total-survivors--Inner h2 {
+.total-survivors--Inner h3 {
   font-size: 1rem;
 }
 
-.total-survivors--Inner h2 span {
+.total-survivors--Inner h3 span {
   font-size: .7rem;
 }

@@ -1,46 +1,44 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import moment from 'moment';
+import 'moment/locale/pt-br';
+
 import './index.css';
 
-const TotalDeaths = () => {
-  const countryData = [
-    { country: 'China', total: 1 },
-    { country: 'Coreia do Sul', total: 1 },
-    { country: 'Japão', total: 1 },
-    { country: 'Égito', total: 1 },
-    { country: 'Alemanha', total: 1 },
-    { country: 'Brasil', total: 1 },
-    { country: 'Estados Unidos', total: 1 },
-    { country: 'Chile', total: 1 },
-    { country: 'Venezuela', total: 1 },
-    { country: 'México', total: 1 },
-    { country: 'Transporte internacional', total: 1 },
-    { country: 'Coreia do Norte', total: 1 },
-    { country: 'Argentina', total: 1 },
-    { country: 'Paquistão', total: 1 },
-  ];
-
-  let totalDeaths = 0;
-  countryData.forEach((country) => {
-    totalDeaths += country.total;
-  });
+const TotalDeaths = ({ totalState }) => {
+  const deaths = totalState.data[0].totalDeaths;
 
   function formatNumber(number) {
     return new Intl.NumberFormat().format(number);
   }
 
+  function formatDate(datetime) {
+    moment.locale('pt-br');
+    return moment(datetime).format('DD [de] MMMM [às] hh:mm');
+  }
+
   return (
     <div className="total-deaths sombra-projetada">
       <div className="total-deaths--Inner">
-        <h1 className="box-title">Total de mortes confirmadas</h1>
-        <h1 className="text-danger">{ formatNumber(totalDeaths) }</h1>
-        <h2>
+        <h2 className="box-title">Total de mortes confirmadas</h2>
+        <h2 className="text-danger">{ formatNumber(deaths) }</h2>
+        <h3>
           Ultima atualização em:
           <br />
-          <span>20 de Janeiro de 2020 as 19:00</span>
-        </h2>
+          <span>{ formatDate(totalState.data[0].updatedAt) }</span>
+        </h3>
       </div>
     </div>
   );
 };
 
-export default TotalDeaths;
+TotalDeaths.propTypes = {
+  totalState: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  totalState: state.totalReducer,
+});
+
+export default connect(mapStateToProps)(TotalDeaths);
