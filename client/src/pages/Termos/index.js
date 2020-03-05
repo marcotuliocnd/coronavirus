@@ -9,7 +9,7 @@ const Termos = () => (
     <Header />
     <div className="termos container">
       <div className="termos--Inner">
-      <h2 class="termos-title text-center">TERMOS DE USO</h2>
+      <h2 className="termos-title text-center">TERMOS DE USO</h2>
       <p>
         O objetivo deste termo de uso é assegurar a efetividade da transparência, privacidade e segurança dos utilizadores do nosso website, ressaltando que o conteúdo exibido em www.coronavirus.com.br é de caráter meramente informativo e não deve ser utilizado em nenhuma hipótese, de forma irresponsável, para orientações médicas ou comércio.
         O website www.coronavirus.com.br é um portal exclusivamente online tendo como objetivo principal, disponibilizar informações atualizadas sobre em relação ao(s) surto(a) do Coronavirus (COVID-19), que devem servir de apoio geral para a área da saúde brasileira.

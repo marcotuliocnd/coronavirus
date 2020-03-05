@@ -1,0 +1,44 @@
+.cabecalho {
+  margin: 0;
+}
+
+.cabecalho--Inner {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: #fff;
+  box-shadow: 0 0 24px 8px rgba(0, 0, 0, .3);
+  padding: 20px 30px;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile h3 {
+  font-size: 1rem;
+  margin-bottom: 0;
+  margin-left: .8rem;
+}
+
+.cabecalho--Inner img {
+  max-height: 30px;
+}
+
+.buttons-header {
+  margin: 0 1rem;
+}
+
+.modal-article {
+  min-width: 80vw;
+}

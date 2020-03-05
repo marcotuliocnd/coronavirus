@@ -1,5 +1,6 @@
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
+export const USER_LOADED = 'USER_LOADED';
 export const LOGOUT = 'LOGOUT';
 export const SET_ALERT = 'SET_ALERT';
 export const REMOVE_ALERT = 'REMOVE_ALERT';
@@ -9,3 +10,5 @@ export const COUNTRIES_COLOR = 'COUNTRIES_COLOR';
 export const COUNTRIES_COLOR_REMOVE = 'COUNTRIES_COLOR_REMOVE';
 export const TOTAL_SUCCESS = 'TOTAL_SUCCESS';
 export const TOTAL_FAIL = 'TOTAL_FAIL';
+export const ARTICLE_SUCCESS = 'ARTICLE_SUCCESS';
+export const ARTICLE_FAIL = 'ARTICLE_FAIL';
