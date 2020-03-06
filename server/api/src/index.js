@@ -30,6 +30,7 @@ app.use('/auth', require('./routes/UserRoutes'));
 app.use('/countries', require('./routes/CountryRoutes'));
 app.use('/totals', require('./routes/TotalRoutes'));
 app.use('/articles', require('./routes/ArticleRoutes'));
+app.use('/', require('./routes/StatusRoutes'));
 
 if (process.env.NODE_ENV === 'development') {
   app.listen(process.env.PORT, () => {
