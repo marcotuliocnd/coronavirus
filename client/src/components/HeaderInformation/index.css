@@ -50,9 +50,4 @@
   .header--Inner img {
     width: 20px;
   }
-
-  .header--Textbox a,  
-  .header--Textbox p {
-    display: none;
-  }
 }

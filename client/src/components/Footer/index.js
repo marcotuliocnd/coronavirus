@@ -9,7 +9,7 @@ const Footer = () => (
       <h2>
         TODOS OS DIREITOS RESERVADOS - 2020
       </h2>
-      <Link className="politics" to="/termos">
+      <Link className="politics" to="#!">
         POLÍTICA DE PRIVACIDADE
       </Link>
     </div>

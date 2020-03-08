@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
-import { ButtonToolbar, Button, Modal, Form } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
-import { EditorState } from 'draft-js';
+import {
+  ButtonToolbar, Button, Modal, Form,
+} from 'react-bootstrap';
+import truncate from 'truncate';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { connect } from 'react-redux';
-import PropTypes from  'prop-types';
+import PropTypes from 'prop-types';
 
-import Alert from '../../components/Alert';
+import Alert from '../Alert';
 import Logo from '../../assets/images/temp-logo.webp';
 
 import { save } from '../../actions/Article';
+import { logout } from '../../actions/Auth';
 
 import './index.css';
 
-const Header = ({ save }) => {
+const Header = ({ save, logout, authState }) => {
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
@@ -33,11 +36,13 @@ const Header = ({ save }) => {
     [event.target.name]: event.target.value,
   });
 
-  const onUploadImage = (event) => {console.log(event.target.files[0]); setFormData({
-    ...formData,
-    [event.target.name]: event.target.files[0],
-  })};
-  
+  const onUploadImage = (event) => {
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.files[0],
+    });
+  };
+
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
   const handleSave = async () => {
@@ -47,7 +52,7 @@ const Header = ({ save }) => {
     multipart.append('description', formData.description);
     multipart.append('tags', formData.tags);
     multipart.append('content', formData.content);
-    multipart.append('image', formData.image);
+    multipart.append('file', formData.image);
     await save(multipart);
     setFormData({ ...formData, saving: false });
     setShow(false);
@@ -59,16 +64,17 @@ const Header = ({ save }) => {
     setFormData({
       ...formData,
       content,
-    })
-  }
+    });
+  };
 
 
-  const article = undefined;
   return (
     <>
       <Modal dialogClassName="modal-article" backdrop="static" show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>{ article ? 'EDITAR' : 'CRIAR' } ARTIGO</Modal.Title>
+          <Modal.Title>
+            CRIAR ARTIGO
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Alert />
@@ -92,7 +98,7 @@ const Header = ({ save }) => {
               <Form.Label>Imagem</Form.Label>
               <Form.Control name="image" onChange={(event) => onUploadImage(event)} type="file" />
             </Form.Group>
-            
+
             <Form.Group>
               <Form.Label>Conteúdo</Form.Label>
               <Editor
@@ -122,17 +128,26 @@ const Header = ({ save }) => {
             </ButtonToolbar>
           </div>
           <div className="profile">
-            <FontAwesomeIcon icon={faUser}/> 
-            <h3>Usuário</h3>
+            <FontAwesomeIcon icon={faUser} />
+            <h3>{ truncate(authState.user.username, 10) }</h3>
+            <button type="button" className="exit" onClick={logout}>
+              <FontAwesomeIcon icon={faSignOutAlt} />
+            </button>
           </div>
         </div>
       </div>
     </>
   );
-}
+};
 
 Header.propTypes = {
   save: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
+  authState: PropTypes.object.isRequired,
 };
 
-export default connect(null, { save })(Header);
+const mapStateToProps = (state) => ({
+  authState: state.authReducer,
+});
+
+export default connect(mapStateToProps, { save, logout })(Header);

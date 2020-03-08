@@ -1,7 +1,10 @@
-import { ARTICLE_SUCCESS, ARTICLE_FAIL } from '../../actions/Types';
+import {
+  ARTICLE_SUCCESS, ARTICLE_FAIL, LOAD_ARTICLE_FAIL, LOAD_ARTICLE_SUCCESS, CURRENT_ARTICLE,
+} from '../../actions/Types';
 
 const initialState = {
-  data: [],
+  data: {},
+  currentArticle: null,
   loading: true,
 };
 
@@ -14,10 +17,24 @@ export default function (state = initialState, action) {
         loading: false,
       };
 
+    case LOAD_ARTICLE_FAIL:
     case ARTICLE_FAIL:
       return {
         ...state,
         loading: false,
+      };
+
+    case LOAD_ARTICLE_SUCCESS:
+      return {
+        ...state,
+        data: payload.data,
+        loading: false,
+      };
+
+    case CURRENT_ARTICLE:
+      return {
+        ...state,
+        currentArticle: payload,
       };
 
     default:

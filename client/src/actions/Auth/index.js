@@ -12,7 +12,6 @@ export const login = (data) => async (dispatch) => {
       payload: response.data,
     });
     dispatch(loadUser());
-    dispatch(setAlert('Logado com sucesso!', 'success'));
   } catch (err) {
     dispatch(setAlert(err.response.data.data, 'danger'));
     dispatch({ type: LOGIN_FAIL });
@@ -29,9 +28,14 @@ export const setAuthToken = (token) => {
 
 export const loadUser = () => async dispatch => {
   if (localStorage.getItem('@token')) {
+    const payload = {
+      token: localStorage.getItem('@token'),
+      user: JSON.parse(localStorage.getItem('@user'))
+    }
     setAuthToken(localStorage.getItem('@token'));
     dispatch({
       type: USER_LOADED,
+      payload
     });
   } else {
     dispatch({

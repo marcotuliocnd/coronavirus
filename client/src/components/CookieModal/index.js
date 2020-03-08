@@ -1,27 +1,34 @@
 import React, { useState } from 'react';
-import { Modal, Button } from 'react-bootstrap'
+import { Modal, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const CookieModal = () => {
-  const [show, setShow] = useState(localStorage.getItem('@cookies') ? false : true);
+  const [show, setShow] = useState(!localStorage.getItem('@cookies'));
 
   const handleClose = () => {
     localStorage.setItem('@cookies', true);
-    setShow(false)
+    setShow(false);
   };
   return (
     <>
-        <Modal backdrop={'static'} show={show} onHide={handleClose}>
-          <Modal.Header>
-            <Modal.Title>Cookies</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>Esse site utiliza cookies para coletar dados.</Modal.Body>
-          <Modal.Footer>
-            <Button variant="primary" onClick={handleClose}>
-              Aceitar
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </>
+      <Modal backdrop="static" show={show} onHide={handleClose}>
+        <Modal.Header>
+          <Modal.Title>Cookies</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Este website utiliza cookies para tornar sua experiência
+          a melhor possível. Se você estiver de acordo basta clicar em &quot;Concordo!&quot;.
+          {' '}
+          <Link to="#!">Saiba mais</Link>
+          .
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose}>
+            Aceitar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
-}
+};
 export default CookieModal;

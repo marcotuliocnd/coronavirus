@@ -1,0 +1,28 @@
+.articles-show {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.articles-show--Inner {
+  background: #fff;
+  width: 70%;
+  padding: 50px;
+  border-right: 2px solid #ccc;
+  border-left: 2px solid #ccc;
+  box-shadow: 0 12px 8px rgba(0, 0, 0, .1);
+}
+
+.articles-header h1 {
+  font-size: 30pt;
+  font-weight: bold;
+}
+
+.articles-header h2 {
+  font-size: 12pt;
+  color: #ccc;
+}
+
+.articles-content img {
+  max-width: 80%;
+}

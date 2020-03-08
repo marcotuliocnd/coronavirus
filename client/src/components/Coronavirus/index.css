@@ -1,0 +1,14 @@
+.Coronavirus {
+}
+
+.Coronavirus--inner {
+  padding: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.Coronavirus--inner p {
+  font-size: 1rem;
+}

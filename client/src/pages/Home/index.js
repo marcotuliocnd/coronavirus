@@ -2,8 +2,10 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import Helmet from 'react-helmet';
 import loadCountries from '../../actions/Countries';
 import loadTotal from '../../actions/Total';
+import { loadArticles } from '../../actions/Article';
 
 import HeaderComponent from '../../components/HeaderInformation';
 import Footer from '../../components/Footer';
@@ -19,22 +21,31 @@ import Chart from '../../components/Chart';
 import Mapa from '../../components/Mapa';
 import ArtigosIndex from '../../components/ArtigosIndex';
 import CookieModal from '../../components/CookieModal';
+import Coronavirus from '../../components/Coronavirus';
 
 import './index.css';
 import Loading from '../../components/Loading';
 
 const HomePage = ({
-  loadCountries, countryState, loadTotal, totalState,
+  loadCountries, countryState, loadTotal, totalState, loadArticles,
 }) => {
   useEffect(() => {
     loadTotal();
     loadCountries();
+    loadArticles();
   }, []);
   return countryState.loading || totalState.loading ? <Loading /> : (
     <>
+      <Helmet>
+        <title>Coronavírus (COVID-19) - Estatísticas globais atualizadas [2020]</title>
+        <meta
+          name="description"
+          content="Confira as informações e estatísticas mais atuais sobre o Coronavírus (COVID-19) e saiba quais os cuidados a serem tomados!"
+        />
+      </Helmet>
       <HeaderComponent />
       <div className="container">
-      <CookieModal />
+        <CookieModal />
         <div className="row justify-content-lg-center">
           <div className="col-lg-3">
             <TotalInfecteds />
@@ -69,7 +80,7 @@ const HomePage = ({
         </div>
         <div className="row justify-content-lg-center">
           <div className="col-lg-3">
-          <AnuncioSquare />
+            <AnuncioSquare />
           </div>
           <div className="class col-lg-9">
             <Chart />
@@ -78,6 +89,11 @@ const HomePage = ({
         <div className="row justify-content-lg-center">
           <div className="col-lg-12">
             <ArtigosIndex />
+          </div>
+        </div>
+        <div className="row justify-content-lg-center">
+          <div className="col-lg-12">
+            <Coronavirus />
           </div>
         </div>
       </div>
@@ -91,6 +107,7 @@ HomePage.propTypes = {
   countryState: PropTypes.object.isRequired,
   loadTotal: PropTypes.func.isRequired,
   totalState: PropTypes.object.isRequired,
+  loadArticles: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -98,4 +115,4 @@ const mapStateToProps = (state) => ({
   totalState: state.totalReducer,
 });
 
-export default connect(mapStateToProps, { loadCountries, loadTotal })(HomePage);
+export default connect(mapStateToProps, { loadCountries, loadTotal, loadArticles })(HomePage);
