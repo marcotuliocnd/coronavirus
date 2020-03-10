@@ -8,7 +8,7 @@ const list = async (req, res) => {
   }
 
   try {
-    const data = await ArticleModel.paginate(query, { sort: { createdAt: -1 }, page, limit: 10 });
+    const data = await ArticleModel.paginate(query, { sort: { createdAt: -1 }, page, limit: 5 });
     return res
       .status(200)
       .json({ success: false, data });
