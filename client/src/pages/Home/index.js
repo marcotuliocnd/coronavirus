@@ -6,6 +6,7 @@ import Helmet from 'react-helmet';
 import loadCountries from '../../actions/Countries';
 import loadTotal from '../../actions/Total';
 import { loadArticles } from '../../actions/Article';
+import { loadStatus } from '../../actions/Status';
 
 import HeaderComponent from '../../components/HeaderInformation';
 import Footer from '../../components/Footer';
@@ -22,19 +23,21 @@ import Mapa from '../../components/Mapa';
 import ArtigosIndex from '../../components/ArtigosIndex';
 import CookieModal from '../../components/CookieModal';
 import Coronavirus from '../../components/Coronavirus';
+import Maintenance from '../../pages/Maintenance';
 
 import './index.css';
 import Loading from '../../components/Loading';
 
 const HomePage = ({
-  loadCountries, countryState, loadTotal, totalState, loadArticles,
+  loadCountries, countryState, loadTotal, totalState, loadArticles, statusState,
 }) => {
   useEffect(() => {
     loadTotal();
     loadCountries();
     loadArticles();
+    loadStatus();
   }, []);
-  return countryState.loading || totalState.loading ? <Loading /> : (
+  return (statusState.offline || statusState.data.maintenance) ? <Maintenance /> : countryState.loading || totalState.loading ? <Loading /> : (
     <>
       <Helmet>
         <title>Coronavírus (COVID-19) - Estatísticas globais atualizadas [2020]</title>
@@ -113,6 +116,7 @@ HomePage.propTypes = {
 const mapStateToProps = (state) => ({
   countryState: state.countriesReducer,
   totalState: state.totalReducer,
+  statusState: state.statusReducer,
 });
 
-export default connect(mapStateToProps, { loadCountries, loadTotal, loadArticles })(HomePage);
+export default connect(mapStateToProps, { loadCountries, loadTotal, loadArticles, loadStatus })(HomePage);

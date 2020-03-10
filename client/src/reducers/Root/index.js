@@ -5,6 +5,7 @@ import alertReducer from '../Alert';
 import countriesReducer from '../Countries';
 import totalReducer from '../Total';
 import articleReducer from '../Article';
+import statusReducer from '../Status';
 
 export default combineReducers({
   authReducer,
@@ -12,4 +13,5 @@ export default combineReducers({
   countriesReducer,
   totalReducer,
   articleReducer,
+  statusReducer,
 });
