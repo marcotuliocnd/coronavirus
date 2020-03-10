@@ -79,7 +79,7 @@ const Header = ({ save, logout, loadStatus, authState, statusState, saveStatus }
   };
 
   const handleStatusSave = async () => {
-    setStatusData({ ...statusData, saving: true });
+    setStatusData({ ...statusData, savingStatus: true });
     const multipart = new FormData();
 
     multipart.append('title', statusData.title);
@@ -94,7 +94,7 @@ const Header = ({ save, logout, loadStatus, authState, statusState, saveStatus }
       multipart.append('announcementSquare', statusData.announcementSquare);
     }
     await saveStatus(multipart);
-    setStatusData({ ...statusData, saving: false });
+    setStatusData({ ...statusData, savingStatus: false });
     setShowStatus(false);
   };
 
