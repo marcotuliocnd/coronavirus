@@ -20,8 +20,12 @@ const list = async (req, res) => {
 const store = async (req, res) => {
   try {
     const { body } = req;
-    body.announcementRectangle = `${process.env.API}/${req.files.announcementRectangle[0].path}`;
-    body.announcementSquare = `${process.env.API}/${req.files.announcementSquare[0].path}`;
+    if (req.files.announcementRectangle) {
+      body.announcementRectangle = `${process.env.API}/${req.files.announcementRectangle[0].path}`;
+    }
+    if (req.files.announcementSquare) {
+      body.announcementSquare = `${process.env.API}/${req.files.announcementSquare[0].path}`;
+    }
     const data = await StatusModel.create(body);
 
     return res
