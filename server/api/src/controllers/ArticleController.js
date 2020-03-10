@@ -34,6 +34,7 @@ const store = async (req, res) => {
     }
     const { body } = req;
     body.image = `${process.env.API}/${req.file.path}`;
+    body.link = `${String(body.title).toLowerCase().replace(' ', '-')}.chtml`;
 
     const data = await ArticleModel.create(body);
     return res
@@ -77,7 +78,7 @@ const update = async (req, res) => {
 
 const show = async (req, res) => {
   try {
-    const data = await ArticleModel.findOne({ _id: req.params.article });
+    const data = await ArticleModel.findOne({ link: String(req.params.article).toLowerCase() });
     return res
       .status(200)
       .json({ success: true, data });
