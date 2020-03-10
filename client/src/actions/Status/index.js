@@ -17,3 +17,17 @@ export const loadStatus = () => async (dispatch) => {
     });
   }
 };
+
+export const saveStatus = (data) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    };
+    await api.post(`${environment.apiUrl}/`, data, config);
+    dispatch(loadStatus());
+  } catch (err) {
+    dispatch({ type: STATUS_FAIL });
+  }
+};
