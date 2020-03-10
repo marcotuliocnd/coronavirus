@@ -37,7 +37,7 @@ const HomePage = ({
     loadArticles();
     loadStatus();
   }, []);
-  return (statusState.offline || statusState.data.maintenance) ? <Maintenance /> : countryState.loading || totalState.loading ? <Loading /> : (
+  return statusState.loading ? <Loading /> : ((statusState.offline || statusState.data.maintenance)) ? <Maintenance /> : countryState.loading || totalState.loading ? <Loading /> : (
     <>
       <Helmet>
         <title>Coronavírus (COVID-19) - Estatísticas globais atualizadas [2020]</title>

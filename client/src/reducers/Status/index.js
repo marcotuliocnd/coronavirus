@@ -3,6 +3,7 @@ import {
 } from '../../actions/Types';
 
 const initialState = {
+  loading: true,
   offline: true,
   data: [],
 };
@@ -12,12 +13,14 @@ export default function (state = initialState, action) {
   switch (type) {
     case STATUS_SUCCESS:
       return {
+        loading: false,
         offline: false,
         data: payload,
       };
 
     case STATUS_FAIL:
       return {
+        loading: false,
         offline: true,
       };
     
