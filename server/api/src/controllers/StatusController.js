@@ -1,5 +1,3 @@
-const { startOfDay, endOfDay } = require('date-fns');
-
 const StatusModel = require('../models/Status');
 
 const list = async (req, res) => {
@@ -21,8 +19,10 @@ const list = async (req, res) => {
 
 const store = async (req, res) => {
   try {
-    
-    const data = await StatusModel.create(req.body);
+    const { body } = req;
+    body.announcementRectangle = `${process.env.API}/${req.files.announcementRectangle[0].path}`;
+    body.announcementSquare = `${process.env.API}/${req.files.announcementSquare[0].path}`;
+    const data = await StatusModel.create(body);
 
     return res
       .status(200)

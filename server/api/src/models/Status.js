@@ -17,6 +17,12 @@ const StatusModel = mongoose.Schema(
     announcementSquare: {
       type: String,
     },
+    coronaTitle: {
+      type: String,
+    },
+    coronaText: {
+      type: String,
+    },
   },
   {
     timestamps: true,
