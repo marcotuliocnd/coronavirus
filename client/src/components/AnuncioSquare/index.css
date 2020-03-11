@@ -2,10 +2,9 @@
 }
 
 .ad-square--Inner {
-  height: 350px;
+  max-height: 350px;
 }
 
 .ad-square--Inner img {
   height: 100%;
-  width: 100%;
 }

@@ -6,7 +6,7 @@ import './index.css';
 
 const AnuncioSquare = ({ statusState }) => (
   <div className="ad-square">
-    <div className="ad-square--Inner sombra">
+    <div className="ad-square--Inner">
       <img src={statusState.data.announcementSquare} alt="Anuncio" />
     </div>
   </div>

@@ -82,7 +82,7 @@ const HomePage = ({
           </div>
         </div>
         <div className="row justify-content-lg-center">
-          <div className="col-lg-3">
+          <div className="col-lg-3 anuncio-square">
             <AnuncioSquare />
           </div>
           <div className="class col-lg-9">

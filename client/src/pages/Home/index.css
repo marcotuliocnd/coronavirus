@@ -7,3 +7,11 @@
   align-items: center;
   justify-content: center;
 }
+
+.anuncio-square {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 350px;
+  margin-top: 1.2rem;
+}
