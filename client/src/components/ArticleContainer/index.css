@@ -29,10 +29,26 @@
   text-transform: uppercase;
 }
 
+.article-container-content {
+  width: 1000px;
+}
+
+.content-article {
+  display: flex;
+  align-items: center;
+}
+
+.next-prev-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .article-container-article {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
   padding: 1rem 50px;

@@ -11,6 +11,7 @@ import { setCurrentArticle, remove } from '../../actions/Article';
 import './index.css';
 
 const ArticleContainer = ({ articleState, setCurrentArticle, remove, loadArticles }) => {
+  const [loading, setLoading] = useState(false);
   const hasPrevious = articleState.data.hasPrevPage;
   const hasNext = articleState.data.hasNextPage;
   const page = articleState.data.page;
@@ -22,7 +23,9 @@ const ArticleContainer = ({ articleState, setCurrentArticle, remove, loadArticle
   };
   const handleClose = () => setShow(false);
   const handleDelete = async () => {
+    setLoading(true);
     await remove(articleState.currentArticle);
+    setLoading(false);
     setShow(false);
   };
 
@@ -30,10 +33,12 @@ const ArticleContainer = ({ articleState, setCurrentArticle, remove, loadArticle
   if (articleState.data.docs) {
     articleState.data.docs.forEach((article) => articlesElement.push(
       <div key={article._id} className="article-container-article">
-        <img src={article.image} alt={article.title} />
-        <div>
-          <Link to={`/articles/${article.link}`}>{article.title}</Link>
-          <p>{truncate(article.description, 150)}</p>
+        <div className="content-article">
+          <img src={article.image} alt={article.title} />
+          <div>
+            <Link to={`/articles/${article.link}`}>{article.title}</Link>
+            <p>{truncate(article.description, 150)}</p>
+          </div>
         </div>
         <div className="button-group">
         <Button className="buttons-header" variant="outline-danger" onClick={() => handleShow(article)}>Excluir</Button>
@@ -59,7 +64,7 @@ const ArticleContainer = ({ articleState, setCurrentArticle, remove, loadArticle
             Cancelar
           </Button>
           <Button variant="danger" onClick={handleDelete}>
-            Excluir
+            {loading ? 'Excluindo' : 'Excluir'}
           </Button>
         </Modal.Footer>
       </Modal>
@@ -70,11 +75,10 @@ const ArticleContainer = ({ articleState, setCurrentArticle, remove, loadArticle
           </div>
           <div className="article-container-content">
             { articlesElement || <h2>Você não possui nenhum artigo!</h2> }
-          </div>
-
-          <div className="prev-next-buttons">
-          <Button variant="primary" disabled={!hasPrevious} onClick={(event) => loadArticles(page-1)}>Anterior</Button>
-          <Button variant="primary" disabled={!hasNext} onClick={(event) => loadArticles(page+1)}>Próximo</Button>
+            <div className="next-prev-buttons">
+              <Button variant="primary" disabled={!hasPrevious} onClick={(event) => loadArticles(page-1)}>Anterior</Button>
+              <Button variant="primary" disabled={!hasNext} onClick={(event) => loadArticles(page+1)}>Próximo</Button>
+            </div>
           </div>
         </div>
       </div>
