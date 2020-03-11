@@ -4,12 +4,17 @@ import { Link } from 'react-router-dom';
 import { Button, Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { loadArticles } from '../../actions/Article';
 
 import { setCurrentArticle, remove } from '../../actions/Article';
 
 import './index.css';
 
-const ArticleContainer = ({ articleState, setCurrentArticle, remove }) => {
+const ArticleContainer = ({ articleState, setCurrentArticle, remove, loadArticles }) => {
+  const hasPrevious = articleState.data.hasPrevPage;
+  const hasNext = articleState.data.hasNextPage;
+  const page = articleState.data.page;
+
   const [show, setShow] = useState(false);
   const handleShow = (article) => {
     setCurrentArticle(article);
@@ -31,7 +36,7 @@ const ArticleContainer = ({ articleState, setCurrentArticle, remove }) => {
           <p>{truncate(article.description, 150)}</p>
         </div>
         <div className="button-group">
-          <Button className="buttons-header" variant="outline-danger" onClick={() => handleShow(article)}>Excluir</Button>
+        <Button className="buttons-header" variant="outline-danger" onClick={() => handleShow(article)}>Excluir</Button>
         </div>
       </div>,
     ));
@@ -66,6 +71,11 @@ const ArticleContainer = ({ articleState, setCurrentArticle, remove }) => {
           <div className="article-container-content">
             { articlesElement || <h2>Você não possui nenhum artigo!</h2> }
           </div>
+
+          <div className="prev-next-buttons">
+          <Button variant="primary" disabled={!hasPrevious} onClick={(event) => loadArticles(page-1)}>Anterior</Button>
+          <Button variant="primary" disabled={!hasNext} onClick={(event) => loadArticles(page+1)}>Próximo</Button>
+          </div>
         </div>
       </div>
     </>
@@ -76,10 +86,11 @@ ArticleContainer.propTypes = {
   setCurrentArticle: PropTypes.func.isRequired,
   articleState: PropTypes.object.isRequired,
   remove: PropTypes.func.isRequired,
+  loadArticles: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   articleState: state.articleReducer,
 });
 
-export default connect(mapStateToProps, { setCurrentArticle, remove })(ArticleContainer);
+export default connect(mapStateToProps, { setCurrentArticle, remove, loadArticles })(ArticleContainer);

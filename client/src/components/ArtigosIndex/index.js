@@ -14,7 +14,6 @@ const ArtigosIndex = ({ articleState, loadArticles }) => {
   const artigos = articleState.data.docs;
   const hasPrevious = articleState.data.hasPrevPage;
   const hasNext = articleState.data.hasNextPage;
-  console.log(hasNext, hasPrevious);
   const page = articleState.data.page;
   const listArtigosElement = [];
 
