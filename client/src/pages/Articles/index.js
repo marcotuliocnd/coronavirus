@@ -16,7 +16,7 @@ import './index.css';
 const Articles = ({ match, show, article, loading }) => {
   useEffect(() => {
     show(match.params.article);
-  });
+  }, []);
 
   return loading ? <Loading /> : !article ? <NotFound /> : (
     <>
@@ -53,7 +53,7 @@ Articles.propTypes = {
 
 const mapStateToProps = (state) => ({
   article: state.articleReducer.currentArticle,
-  loading: state.articleReducer.loading,
+  loading: state.articleReducer.loadingOne,
 });
 
 export default connect(mapStateToProps, { show })(Articles);

@@ -5,6 +5,7 @@ import {
 const initialState = {
   data: {},
   currentArticle: null,
+  loadingOne: true,
   loading: true,
 };
 
@@ -34,7 +35,7 @@ export default function (state = initialState, action) {
     case CURRENT_ARTICLE:
       return {
         ...state,
-        loading: false,
+        loadingOne: false,
         currentArticle: payload,
       };
 
