@@ -32,7 +32,7 @@ const ArticleContainer = ({ articleState, setCurrentArticle, remove, loadArticle
       <div key={article._id} className="article-container-article">
         <img src={article.image} alt={article.title} />
         <div>
-          <Link to={`/articles/${article._id}`}>{article.title}</Link>
+          <Link to={`/articles/${article.link}`}>{article.title}</Link>
           <p>{truncate(article.description, 150)}</p>
         </div>
         <div className="button-group">

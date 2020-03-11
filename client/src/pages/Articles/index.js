@@ -8,6 +8,7 @@ import { show } from '../../actions/Article';
 import Loading from '../../components/Loading';
 
 import Header from '../../components/HeaderInformation';
+import Footer from '../../components/Footer';
 
 import './index.css';
 
@@ -38,6 +39,7 @@ const Articles = ({ match, show, article }) => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };
