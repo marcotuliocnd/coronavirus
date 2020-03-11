@@ -37,6 +37,7 @@ const Mapa = ({ countryState }) => {
       (country) => country.name.toLocaleLowerCase().trim() === countryName.toLocaleLowerCase().trim(),
     );
     if (!countryEquivalent) {
+      console.log(countryName);
       countryEquivalent = {
         capital: 'us',
         latlng: [0, 0],
