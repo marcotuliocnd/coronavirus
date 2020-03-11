@@ -7,7 +7,7 @@ import Helmet from 'react-helmet';
 
 import { login } from '../../actions/Auth';
 
-import Logo from '../../assets/images/temp-logo.webp';
+import Logo from '../../assets/images/logo.png';
 import Alert from '../../components/Alert';
 
 const Login = ({ login, authState }) => {

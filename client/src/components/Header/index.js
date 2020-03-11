@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Alert from '../Alert';
-import Logo from '../../assets/images/temp-logo.webp';
+import Logo from '../../assets/images/logo.png';
 
 import { save } from '../../actions/Article';
 import { saveStatus, loadStatus } from '../../actions/Status';
