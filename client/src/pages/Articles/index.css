@@ -5,22 +5,32 @@
 }
 
 .articles-show--Inner {
-  background: #fff;
-  width: 70%;
+  width: 1000px;
   padding: 50px;
-  border-right: 2px solid #ccc;
-  border-left: 2px solid #ccc;
-  box-shadow: 0 12px 8px rgba(0, 0, 0, .1);
+}
+
+.articles-header {
+  width: 100%;
 }
 
 .articles-header h1 {
-  font-size: 30pt;
+  font-size: 35pt;
   font-weight: bold;
 }
 
 .articles-header h2 {
-  font-size: 12pt;
-  color: #ccc;
+  font-size: 16pt;
+  color: hsl(0, 0%, 52%);
+}
+
+.datetime {
+  font-size: .9rem;
+  color: hsl(0, 0%, 52%);
+  margin: 2rem 0;
+}
+
+.articles-content {
+  width: 800px;
 }
 
 .articles-content img {
