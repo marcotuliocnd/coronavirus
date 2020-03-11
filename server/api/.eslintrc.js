@@ -18,5 +18,6 @@ module.exports = {
     'no-console': 'off',
     'no-underscore-dangle': 'off',
     'no-use-before-define': 'off',
+    'react-hooks/exhaustive-deps': 'off',
   },
 };
