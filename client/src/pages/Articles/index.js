@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactHtmlParser from 'react-html-parser';
@@ -7,17 +7,18 @@ import { show } from '../../actions/Article';
 
 import Loading from '../../components/Loading';
 
+import NotFound from '../NotFound';
 import Header from '../../components/HeaderInformation';
 import Footer from '../../components/Footer';
 
 import './index.css';
 
-const Articles = ({ match, show, article }) => {
-  useState(() => {
+const Articles = ({ match, show, article, loading }) => {
+  useEffect(() => {
     show(match.params.article);
   });
-  const loading = true;
-  return loading && !article ? <Loading /> : (
+
+  return loading ? <Loading /> : !article ? <NotFound /> : (
     <>
       <Helmet>
         <title>{ article.title }</title>
@@ -47,11 +48,12 @@ const Articles = ({ match, show, article }) => {
 Articles.propTypes = {
   show: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
-  article: PropTypes.object.isRequired,
+  article: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
   article: state.articleReducer.currentArticle,
+  loading: state.articleReducer.loading,
 });
 
 export default connect(mapStateToProps, { show })(Articles);

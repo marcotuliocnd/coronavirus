@@ -34,6 +34,7 @@ export default function (state = initialState, action) {
     case CURRENT_ARTICLE:
       return {
         ...state,
+        loading: false,
         currentArticle: payload,
       };
 
