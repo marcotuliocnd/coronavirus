@@ -5,11 +5,17 @@ import 'moment/locale/pt-br';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
+import { loadArticles } from '../../actions/Article';
 
 import './index.css';
 
-const ArtigosIndex = ({ articleState }) => {
+const ArtigosIndex = ({ articleState, loadArticles }) => {
   const artigos = articleState.data.docs;
+  const hasPrevious = articleState.data.hasPrevPage;
+  const hasNext = articleState.data.hasNextPage;
+  console.log(hasNext, hasPrevious);
+  const page = articleState.data.page;
   const listArtigosElement = [];
 
   function formatDate(datetime) {
@@ -25,7 +31,7 @@ const ArtigosIndex = ({ articleState }) => {
             <div className="article--Inner">
               <img src={artigo.image} alt={artigo.title} />
               <div>
-                <Link to={`/articles/${artigo._id}`}>{ truncate(artigo.title, 70) }</Link>
+                <Link to={`/articles/${artigo.link}`}>{ truncate(artigo.title, 70) }</Link>
                 <p>{ truncate(artigo.description, 150) }</p>
                 <p className="datetime">{ formatDate(artigo.createdAt) }</p>
               </div>
@@ -42,6 +48,14 @@ const ArtigosIndex = ({ articleState }) => {
         <ul className="list">
           { listArtigosElement }
         </ul>
+        <div className="prev-next-buttons">
+          <Button variant="primary" onClick={(event) => loadArticles(page - 1)} disabled={!hasPrevious}>
+            Anterior
+          </Button>
+          <Button variant="primary" onClick={(event) => loadArticles(page + 1)} disabled={!hasNext}>
+            Próximo
+          </Button>
+        </div>
       </div>
     </div>
   );
@@ -49,10 +63,11 @@ const ArtigosIndex = ({ articleState }) => {
 
 ArtigosIndex.propTypes = {
   articleState: PropTypes.object.isRequired,
+  loadArticles: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   articleState: state.articleReducer,
 });
 
-export default connect(mapStateToProps)(ArtigosIndex);
+export default connect(mapStateToProps, { loadArticles })(ArtigosIndex);

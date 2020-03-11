@@ -27,8 +27,9 @@
 .article--Inner {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  width: 800px;
 }
 
 .list {
@@ -62,6 +63,12 @@
 
 .articles-title {
   font-size: 1.5rem !important;
+}
+
+.prev-next-buttons {
+  width: 800px;
+  display: flex;
+  justify-content: space-between;
 }
 
 @media all and (max-width: 992px) {
