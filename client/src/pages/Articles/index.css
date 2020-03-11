@@ -41,3 +41,17 @@
   display: flex;
   justify-content: center;
 }
+
+@media all and (max-width: 992px) {
+  .articles-show--Inner {
+    width: 100%;
+  }
+
+  .articles-content {
+    width: 100%;
+  }
+
+  .articles-content img {
+    max-width: 100%;
+  }
+}
