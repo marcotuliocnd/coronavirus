@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import './index.css';
+import Helmet from 'react-helmet';
 
 import { login } from '../../actions/Auth';
 
@@ -32,19 +33,24 @@ const Login = ({ login, authState }) => {
   };
 
   return (
-    <div className="login container slide-bottom">
-      <div className="login--Inner">
-        <img src={Logo} alt="logomarca" />
-        <div className="form--Wrapper">
-          <form className="form" onSubmit={(event) => doLogin(event)}>
-            <input onChange={(event) => onWriteForm(event)} placeholder="Usuário" name="username" type="username" />
-            <input onChange={(event) => onWriteForm(event)} placeholder="Senha" name="password" type="password" />
-            <button type="submit">{ doingLogin ? 'Entrando...' : 'Entrar' }</button>
-          </form>
-          <Alert />
+    <>
+      <Helmet>
+        <title>Login</title>
+      </Helmet>
+      <div className="login container slide-bottom">
+        <div className="login--Inner">
+          <img src={Logo} alt="logomarca" />
+          <div className="form--Wrapper">
+            <form className="form" onSubmit={(event) => doLogin(event)}>
+              <input onChange={(event) => onWriteForm(event)} placeholder="Usuário" name="username" type="username" />
+              <input onChange={(event) => onWriteForm(event)} placeholder="Senha" name="password" type="password" />
+              <button type="submit">{ doingLogin ? 'Entrando...' : 'Entrar' }</button>
+            </form>
+            <Alert />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

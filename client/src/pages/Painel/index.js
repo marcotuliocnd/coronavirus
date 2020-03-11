@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Helmet from 'react-helmet';
 
 import Loading from '../../components/Loading';
 
@@ -13,8 +14,12 @@ const Painel = ({ articleState }) => {
   useEffect(() => {
     loadArticles();
   }, []);
-  return articleState.loading ? <Loading /> : (
+  return articleState.loading ? 
+  <Loading /> : (
     <>
+      <Helmet>
+        <title>Painel</title>
+      </Helmet>
       <Header />
       <div className="painel">
         <div className="painel--Inner">
