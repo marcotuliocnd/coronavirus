@@ -12,6 +12,7 @@ import Loading from '../../components/Loading';
 import NotFound from '../NotFound';
 import Header from '../../components/HeaderInformation';
 import Footer from '../../components/Footer';
+import Anuncio from '../../components/Anuncio';
 
 import './index.css';
 
@@ -46,6 +47,8 @@ const Articles = ({ match, show, article, loading }) => {
           <div className="articles-content">
             { ReactHtmlParser(article.content) }
           </div>
+          <hr />
+          <Anuncio />
         </div>
       </div>
       <Footer />

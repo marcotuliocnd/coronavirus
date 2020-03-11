@@ -36,3 +36,8 @@
 .articles-content img {
   max-width: 80%;
 }
+
+.rdw-image-imagewrapper {
+  display: flex;
+  justify-content: center;
+}
