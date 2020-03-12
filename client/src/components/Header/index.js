@@ -19,7 +19,9 @@ import { logout } from '../../actions/Auth';
 
 import './index.css';
 
-const Header = ({ save, logout, loadStatus, authState, statusState, saveStatus }) => {
+const Header = ({
+  save, logout, loadStatus, authState, statusState, saveStatus,
+}) => {
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
@@ -32,7 +34,7 @@ const Header = ({ save, logout, loadStatus, authState, statusState, saveStatus }
 
   const [showStatus, setShowStatus] = useState(false);
   const handleStatusShow = () => {
-    setShowStatus(true)
+    setShowStatus(true);
   };
   const handleStatusClose = () => setShowStatus(false);
 
@@ -53,7 +55,7 @@ const Header = ({ save, logout, loadStatus, authState, statusState, saveStatus }
 
   useEffect(() => {
     loadStatus();
-    
+
     setStatusData({
       title: statusState.loading || !statusState.data.title ? '' : statusState.data.title,
       description: statusState.loading || !statusState.data.description ? '' : statusState.data.description,
@@ -63,7 +65,7 @@ const Header = ({ save, logout, loadStatus, authState, statusState, saveStatus }
       announcementRectangle: null,
       announcementSquare: null,
       savingStatus: false,
-    })
+    });
   }, [statusState.loading]);
 
   const onWriteStatus = (event) => setStatusData({
@@ -93,9 +95,13 @@ const Header = ({ save, logout, loadStatus, authState, statusState, saveStatus }
     if (statusData.announcementSquare) {
       multipart.append('announcementSquare', statusData.announcementSquare);
     }
-    await saveStatus(multipart);
-    setStatusData({ ...statusData, savingStatus: false });
-    setShowStatus(false);
+    try {
+      await saveStatus(multipart);
+      setStatusData({ ...statusData, savingStatus: false });
+      setShowStatus(false);
+    } catch (err) {
+      setStatusData({ ...statusData, savingStatus: false });
+    }
   };
 
   const { saving } = formData;
@@ -123,9 +129,13 @@ const Header = ({ save, logout, loadStatus, authState, statusState, saveStatus }
     multipart.append('tags', formData.tags);
     multipart.append('content', formData.content);
     multipart.append('file', formData.image);
-    await save(multipart);
-    setFormData({ ...formData, saving: false });
-    setShow(false);
+    try {
+      await save(multipart);
+      setFormData({ ...formData, saving: false });
+      setShow(false);
+    } catch (err) {
+      setFormData({ ...formData, saving: false });
+    }
   };
 
   const handleContent = () => {
@@ -206,13 +216,13 @@ const Header = ({ save, logout, loadStatus, authState, statusState, saveStatus }
 
             <Form.Group>
               <Form.Label>Descrição</Form.Label>
-              <Form.Control value={description}  name="description" onChange={(event) => onWriteStatus(event)} type="text" />
+              <Form.Control value={description} name="description" onChange={(event) => onWriteStatus(event)} type="text" />
             </Form.Group>
 
             <Form.Group>
               <Form.Label>Manutenção</Form.Label>
               <Form.Control value={maintenance} name="maintenance" onChange={(event) => onWriteStatus(event)} as="select">
-                <option value={true}>Sim</option>
+                <option value>Sim</option>
                 <option value={false}>Não</option>
               </Form.Control>
             </Form.Group>
@@ -285,4 +295,6 @@ const mapStateToProps = (state) => ({
   statusState: state.statusReducer,
 });
 
-export default connect(mapStateToProps, { save, logout, saveStatus, loadStatus })(Header);
+export default connect(mapStateToProps, {
+  save, logout, saveStatus, loadStatus,
+})(Header);
