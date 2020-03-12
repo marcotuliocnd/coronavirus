@@ -1,3 +1,7 @@
+body {
+  background: #fff;
+}
+
 .articles-show {
   display: flex;
   justify-content: center;
