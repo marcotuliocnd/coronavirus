@@ -20,6 +20,10 @@
   width: 80px;
 }
 
+.mobile {
+  display: none;
+}
+
 .header--Textbox {
   margin-left: 12px;
   color: #62929E;
@@ -49,5 +53,14 @@
 
   .header--Inner img {
     width: 20px;
+  }
+
+  .logo {
+    display: none;
+  }
+  
+  .mobile {
+    display: block;
+    width: 150px;
   }
 }

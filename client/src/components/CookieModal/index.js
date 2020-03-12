@@ -13,18 +13,18 @@ const CookieModal = () => {
     <>
       <Modal backdrop="static" show={show} onHide={handleClose}>
         <Modal.Header>
-          <Modal.Title>Cookies</Modal.Title>
+          <Modal.Title>Política de privacidade</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           Este website utiliza cookies para tornar sua experiência
           a melhor possível. Se você estiver de acordo basta clicar em &quot;Concordo!&quot;.
           {' '}
-          <Link to="#!">Saiba mais</Link>
+          <Link to="/privacidade">Saiba mais</Link>
           .
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleClose}>
-            Aceitar
+            Concordo
           </Button>
         </Modal.Footer>
       </Modal>

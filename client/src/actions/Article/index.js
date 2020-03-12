@@ -42,6 +42,7 @@ export const save = (data) => async (dispatch) => {
   } catch (err) {
     dispatch(setAlert(err.response.data.data, 'danger'));
     dispatch({ type: ARTICLE_FAIL });
+    throw new Error('Falha');
   }
 };
 
