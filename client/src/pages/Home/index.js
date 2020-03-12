@@ -23,7 +23,7 @@ import Mapa from '../../components/Mapa';
 import ArtigosIndex from '../../components/ArtigosIndex';
 import CookieModal from '../../components/CookieModal';
 import Coronavirus from '../../components/Coronavirus';
-import Maintenance from '../../pages/Maintenance';
+import Maintenance from '../Maintenance';
 
 import './index.css';
 import Loading from '../../components/Loading';
@@ -37,72 +37,74 @@ const HomePage = ({
     loadArticles();
     loadStatus();
   }, []);
-  return statusState.loading ? <Loading /> : ((statusState.offline || statusState.data.maintenance)) ? <Maintenance /> : countryState.loading || totalState.loading ? <Loading /> : (
-    <>
-      <Helmet>
-        <title>Coronavírus (COVID-19) - Estatísticas globais atualizadas [2020]</title>
-        <meta
-          name="description"
-          content="Confira as informações e estatísticas mais atuais sobre o Coronavírus (COVID-19) e saiba quais os cuidados a serem tomados!"
-        />
-      </Helmet>
-      <HeaderComponent />
-      <div className="container">
-        <CookieModal />
-        <div className="row justify-content-lg-center">
-          <div className="col-lg-3">
-            <TotalInfecteds />
-          </div>
-          <div className="col-lg-6">
-            <Anuncio />
-          </div>
-          <div className="col-lg-3">
-            <TotalDeaths />
-          </div>
-        </div>
-        <div className="row justify-content-lg-center">
-          <div className="col-lg-3">
-            <ListInfecteds />
-          </div>
-          <div className="col-lg-6">
-            <Mapa />
-          </div>
-          <div className="col-lg-3">
-            <ListDeaths />
-          </div>
-        </div>
-        <div className="row justify-content-lg-center">
-          <div className="col-lg-3">
-            <TotalSurvivors />
-          </div>
-          <div className="class col-lg-9">
-            <div className="sombra">
-              <ListSurvivors />
+  return statusState.loading ? <Loading />
+    : ((statusState.offline || statusState.data.maintenance)) ? <Maintenance />
+      : countryState.loading || totalState.loading ? <Loading /> : (
+        <>
+          <Helmet>
+            <title>Coronavírus (COVID-19) - Estatísticas globais atualizadas [2020]</title>
+            <meta
+              name="description"
+              content="Confira as informações e estatísticas mais atuais sobre o Coronavírus (COVID-19) e saiba quais os cuidados a serem tomados!"
+            />
+          </Helmet>
+          <HeaderComponent />
+          <div className="container">
+            <CookieModal />
+            <div className="row justify-content-lg-center">
+              <div className="col-lg-3">
+                <TotalInfecteds />
+              </div>
+              <div className="col-lg-6">
+                <Anuncio />
+              </div>
+              <div className="col-lg-3">
+                <TotalDeaths />
+              </div>
+            </div>
+            <div className="row justify-content-lg-center">
+              <div className="col-lg-3">
+                <ListInfecteds />
+              </div>
+              <div className="col-lg-6">
+                <Mapa />
+              </div>
+              <div className="col-lg-3">
+                <ListDeaths />
+              </div>
+            </div>
+            <div className="row justify-content-lg-center">
+              <div className="col-lg-3">
+                <TotalSurvivors />
+              </div>
+              <div className="class col-lg-9">
+                <div className="sombra">
+                  <ListSurvivors />
+                </div>
+              </div>
+            </div>
+            <div className="row justify-content-lg-center">
+              <div className="col-lg-3 anuncio-square">
+                <AnuncioSquare />
+              </div>
+              <div className="class col-lg-9">
+                <Chart />
+              </div>
+            </div>
+            <div className="row justify-content-lg-center">
+              <div className="col-lg-12">
+                <ArtigosIndex />
+              </div>
+            </div>
+            <div className="row justify-content-lg-center">
+              <div className="col-lg-12">
+                <Coronavirus />
+              </div>
             </div>
           </div>
-        </div>
-        <div className="row justify-content-lg-center">
-          <div className="col-lg-3 anuncio-square">
-            <AnuncioSquare />
-          </div>
-          <div className="class col-lg-9">
-            <Chart />
-          </div>
-        </div>
-        <div className="row justify-content-lg-center">
-          <div className="col-lg-12">
-            <ArtigosIndex />
-          </div>
-        </div>
-        <div className="row justify-content-lg-center">
-          <div className="col-lg-12">
-            <Coronavirus />
-          </div>
-        </div>
-      </div>
-      <Footer />
-    </>
-  );
+          <Footer />
+        </>
+      );
 };
 
 HomePage.propTypes = {
@@ -110,6 +112,7 @@ HomePage.propTypes = {
   countryState: PropTypes.object.isRequired,
   loadTotal: PropTypes.func.isRequired,
   totalState: PropTypes.object.isRequired,
+  statusState: PropTypes.object.isRequired,
   loadArticles: PropTypes.func.isRequired,
 };
 
@@ -119,4 +122,6 @@ const mapStateToProps = (state) => ({
   statusState: state.statusReducer,
 });
 
-export default connect(mapStateToProps, { loadCountries, loadTotal, loadArticles, loadStatus })(HomePage);
+export default connect(mapStateToProps, {
+  loadCountries, loadTotal, loadArticles, loadStatus,
+})(HomePage);
