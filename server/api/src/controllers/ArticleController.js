@@ -34,7 +34,7 @@ const store = async (req, res) => {
     }
     const { body } = req;
     body.image = `${process.env.API}/${req.file.path}`;
-    body.link = `${String(body.title).toLowerCase().replace(' ', '-')}.chtml`;
+    body.link = `${String(body.title).toLowerCase().replace(/ /g, '-')}.chtml`;
 
     const data = await ArticleModel.create(body);
     return res
