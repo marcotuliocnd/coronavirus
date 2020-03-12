@@ -1,4 +1,4 @@
-.pageNotFound {
+.pageMaintenance {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,9 +7,9 @@
   padding: 100px;
 }
 
-.error-text {
+.maintenance-text {
   color: #247BA0;
-  font-size: 100px;
+  font-size: 8rem;
   font-weight: bold;
 }
 
@@ -17,27 +17,11 @@
   color: #a0a0a0;
 }
 
-.pageNotFoundImage {
+.pageMaintenanceImage {
   width: 700px;
 }
 
-.go-home {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50px;
-  text-transform: uppercase;
-  background-color: #fff;
-  width: 250px;
-  height: 50px;
-}
-
-.go-home:hover {
-  transition: 0.5s;
-  background: #dadada;
-}
-
-.pageNotFoundText {
+.pageMaintenanceText {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -45,8 +29,16 @@
 }
 
 @media all and (max-width: 992px) {
-  .pageNotFoundImage {
+  .pageMaintenanceImage {
     width: 300px;
+  }
+
+  .maintenance-text {
+    font-size: 3rem;
+  }
+
+  .pageMaintenanceText {
+    width: 250px;
   }
 }
 
