@@ -6,11 +6,15 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Logo from '../../assets/images/logo.png';
+import LogoMobile from '../../assets/images/logo-mobile.png';
 
 const HeaderInformation = ({ statusState }) => (
   <div className="header">
     <Navbar bg="transparent" expand="lg">
-      <Navbar.Brand href="/"><img className="logo" src={Logo} alt="logomarca" /></Navbar.Brand>
+      <Navbar.Brand href="/">
+        <img className="logo desktop" src={Logo} alt="logomarca" />
+        <img className="logo mobile" src={LogoMobile} alt="logomarca" />
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
