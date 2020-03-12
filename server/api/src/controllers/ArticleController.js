@@ -1,4 +1,5 @@
 const ArticleModel = require('../models/Article');
+const { validationResult } = require('express-validator');
 
 const list = async (req, res) => {
   const { page = 1, search } = req.query;
@@ -22,18 +23,26 @@ const list = async (req, res) => {
 
 const store = async (req, res) => {
   try {
-    if (
-      !req.body.title
-      || !req.body.description
-      || !req.body.content
-      || !req.body.tags
-    ) {
+    const errors = validationResult(req);
+    const { body, file } = req;
+
+    if (!errors.isEmpty() || !file){
+      let errorsArray = errors.array();
+
+      if(!file){
+        errorsArray.push({
+          "msg": "Você deve enviar uma imagem.",
+          "param": "file",
+          "location": "body"
+        });
+      }
+
       return res
         .status(400)
-        .json({ success: false, data: 'O artigo está faltando informações' });
+        .json({ success: false, data: errorsArray });
     }
-    const { body } = req;
-    body.image = `${process.env.API}/${req.file.path}`;
+
+    body.image = `${process.env.API}/${file.path}`;
     body.link = `${String(body.title).toLowerCase().replace(/ /g, '-')}.chtml`;
 
     const data = await ArticleModel.create(body);
