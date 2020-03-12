@@ -1,11 +1,13 @@
 import React from 'react';
 import './index.css';
 import { Link } from 'react-router-dom';
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Logo from '../../assets/images/logo.png';
 
-const HeaderInformation = () => (
+const HeaderInformation = ({ statusState }) => (
   <div className="header">
     <Navbar bg="transparent" expand="lg">
       <Navbar.Brand href="/"><img className="logo" src={Logo} alt="logomarca" /></Navbar.Brand>
@@ -13,7 +15,7 @@ const HeaderInformation = () => (
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           <div className="header--Textbox">
-            <h1>Coronavírus - COVID-19 - ESTATÍSTICAS GLOBAIS (Último surto)</h1>
+            <h1>{ statusState.data.title }</h1>
             <p>
               Aviso legal. Os dados apresentados neste website são meramente informativos,
               e não devem ser utilizados para nenhuma orientação médica ou comércio.
@@ -26,4 +28,12 @@ const HeaderInformation = () => (
   </div>
 );
 
-export default HeaderInformation;
+HeaderInformation.propTypes = {
+  statusState: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  statusState: state.statusReducer,
+});
+
+export default connect(mapStateToProps)(HeaderInformation);
