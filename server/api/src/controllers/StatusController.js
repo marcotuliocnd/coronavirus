@@ -1,4 +1,5 @@
 const StatusModel = require('../models/Status');
+const { validationResult } = require('express-validator');
 
 const list = async (req, res) => {
   try {
@@ -20,7 +21,12 @@ const list = async (req, res) => {
 const store = async (req, res) => {
   try {
     const { body } = req;
-    
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res
+        .status(400)
+        .json({ success:false, data: errors.array() });
+    }
     const data = await StatusModel.create(body);
 
     return res
