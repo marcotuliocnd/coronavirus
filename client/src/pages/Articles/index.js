@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactHtmlParser from 'react-html-parser';
 import Helmet from 'react-helmet';
-import { show } from '../../actions/Article';
 import moment from 'moment';
+import { show } from '../../actions/Article';
 import 'moment/locale/pt-br';
 
 import Loading from '../../components/Loading';
@@ -16,7 +16,9 @@ import Anuncio from '../../components/Anuncio';
 
 import './index.css';
 
-const Articles = ({ match, show, article, loading }) => {
+const Articles = ({
+  match, show, article, loading,
+}) => {
   useEffect(() => {
     show(match.params.article);
   }, []);

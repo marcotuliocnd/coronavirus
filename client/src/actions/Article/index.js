@@ -40,7 +40,9 @@ export const save = (data) => async (dispatch) => {
     dispatch(loadArticles());
     dispatch(setAlert('Salvo com sucesso!', 'success'));
   } catch (err) {
-    dispatch(setAlert(err.response.data.data, 'danger'));
+    if (err.response && err.response.data && err.response.data.data) {
+      err.response.data.data.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
     dispatch({ type: ARTICLE_FAIL });
     throw new Error('Falha');
   }

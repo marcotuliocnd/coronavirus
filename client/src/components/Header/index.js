@@ -5,10 +5,10 @@ import {
 import truncate from 'truncate';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import { Editor } from 'react-draft-wysiwyg';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import ReactQuill, { Quill } from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 import Alert from '../Alert';
 import Logo from '../../assets/images/logo.png';
@@ -62,8 +62,8 @@ const Header = ({
       maintenance: statusState.loading ? true : statusState.data.maintenance,
       coronaTitle: statusState.loading || !statusState.data.coronaTitle ? '' : statusState.data.coronaTitle,
       coronaText: statusState.loading || !statusState.data.coronaText ? '' : statusState.data.coronaText,
-      announcementRectangle: null,
-      announcementSquare: null,
+      announcementRectangle: statusState.loading || !statusState.data.announcementRectangle ? '' : statusState.data.announcementRectangle,
+      announcementSquare: statusState.loading || !statusState.data.announcementSquare ? '' : statusState.data.announcementSquare,
       savingStatus: false,
     });
   }, [statusState.loading]);
@@ -71,6 +71,11 @@ const Header = ({
   const onWriteStatus = (event) => setStatusData({
     ...statusData,
     [event.target.name]: event.target.value,
+  });
+
+  const onWriteCorona = (event) => setStatusData({
+    ...statusData,
+    coronaText: event,
   });
 
   const onUploadAd = (event) => {
@@ -82,21 +87,8 @@ const Header = ({
 
   const handleStatusSave = async () => {
     setStatusData({ ...statusData, savingStatus: true });
-    const multipart = new FormData();
-
-    multipart.append('title', statusData.title);
-    multipart.append('description', statusData.description);
-    multipart.append('maintenance', statusData.maintenance);
-    multipart.append('coronaTitle', statusData.coronaTitle);
-    multipart.append('coronaText', statusData.coronaText);
-    if (statusData.announcementRectangle) {
-      multipart.append('announcementRectangle', statusData.announcementRectangle);
-    }
-    if (statusData.announcementSquare) {
-      multipart.append('announcementSquare', statusData.announcementSquare);
-    }
     try {
-      await saveStatus(multipart);
+      await saveStatus(statusData);
       setStatusData({ ...statusData, savingStatus: false });
       setShowStatus(false);
     } catch (err) {
@@ -110,6 +102,11 @@ const Header = ({
   const onWriteForm = (event) => setFormData({
     ...formData,
     [event.target.name]: event.target.value,
+  });
+
+  const onWriteContent = (event) => setFormData({
+    ...formData,
+    content: event,
   });
 
   const onUploadImage = (event) => {
@@ -138,15 +135,35 @@ const Header = ({
     }
   };
 
-  const handleContent = () => {
-    const editorElement = document.querySelector('.public-DraftEditor-content');
-    const content = editorElement.innerHTML;
-    setFormData({
-      ...formData,
-      content,
-    });
+
+  const [modalUser, setModalUser] = useState(false);
+  const userModalController = {
+    present: () => setModalUser(true),
+    dismiss: () => setModalUser(false),
+    save: () => console.log('saving'),
+    element: () => {
+      
+    },
   };
 
+  const formats = [
+    'bold',
+    'color',
+    'font',
+    'italic',
+    'link',
+    'size',
+    'strike',
+    'script',
+    'underline',
+    'blockquote',
+    'header',
+    'indent',
+    'list',
+    'align',
+    'image',
+    'video',
+  ];
 
   return (
     <>
@@ -181,11 +198,10 @@ const Header = ({
 
             <Form.Group>
               <Form.Label>Conteúdo</Form.Label>
-              <Editor
-                onContentStateChange={handleContent}
-                toolbarClassName="toolbarClassName"
-                wrapperClassName="wrapperClassName"
-                editorClassName="editorClassName"
+              <ReactQuill
+                name="content"
+                formats
+                onChange={(event) => onWriteContent(event)}
               />
             </Form.Group>
           </Form>
@@ -229,12 +245,12 @@ const Header = ({
 
             <Form.Group>
               <Form.Label>Anúncio 01 (Superior)</Form.Label>
-              <Form.Control name="announcementRectangle" onChange={(event) => onUploadAd(event)} type="file" />
+              <Form.Control name="announcementRectangle" onChange={(event) => onWriteStatus(event)} as="textarea" />
             </Form.Group>
 
             <Form.Group>
               <Form.Label>Anúncio 02 (Inferior)</Form.Label>
-              <Form.Control name="announcementSquare" onChange={(event) => onUploadAd(event)} type="file" />
+              <Form.Control name="announcementSquare" onChange={(event) => onWriteStatus(event)} as="textarea" />
             </Form.Group>
 
             <Form.Group>
@@ -244,7 +260,12 @@ const Header = ({
 
             <Form.Group>
               <Form.Label>Texto informativo</Form.Label>
-              <Form.Control value={coronaText} name="coronaText" as="textarea" rows="3" onChange={(event) => onWriteStatus(event)} />
+              <ReactQuill
+                name="coronaText"
+                value={coronaText}
+                formats
+                onChange={(event) => onWriteCorona(event)}
+              />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -257,6 +278,26 @@ const Header = ({
           </Button>
         </Modal.Footer>
       </Modal>
+      
+      <Modal dialogClassName="modal-article" backdrop="static" show={modalUser} onHide={userModalController.present}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            GERENCIAR USUÁRIOS
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Alert />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={userModalController.dismiss}>
+            Fechar
+          </Button>
+          <Button variant="primary" onClick={userModalController.save}>
+            { saving ? 'Salvando' : 'Salvar'}
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       <div className="cabecalho">
         <div className="cabecalho--Inner">
           <div className="content">
@@ -266,6 +307,9 @@ const Header = ({
             </ButtonToolbar>
             <ButtonToolbar className="toolbar">
               <Button className="buttons-header" variant="outline-primary" onClick={handleStatusShow}>Gerenciar</Button>
+            </ButtonToolbar>
+            <ButtonToolbar className="toolbar">
+              <Button className="buttons-header" variant="outline-primary" onClick={userModalController.present}>Usuários</Button>
             </ButtonToolbar>
           </div>
           <div className="profile">

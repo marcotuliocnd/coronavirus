@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import truncate from 'truncate';
 import { Link } from 'react-router-dom';
-import { Button, Modal } from 'react-bootstrap';
+import { Button, Modal, Form } from 'react-bootstrap';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { loadArticles } from '../../actions/Article';
+import { loadArticles, setCurrentArticle, remove } from '../../actions/Article';
 
-import { setCurrentArticle, remove } from '../../actions/Article';
+import Alert from '../Alert';
 
 import './index.css';
 
-const ArticleContainer = ({ articleState, setCurrentArticle, remove, loadArticles }) => {
+const ArticleContainer = ({
+  articleState, setCurrentArticle, remove, loadArticles,
+}) => {
   const [loading, setLoading] = useState(false);
   const hasPrevious = articleState.data.hasPrevPage;
   const hasNext = articleState.data.hasNextPage;
-  const page = articleState.data.page;
+  const { page } = articleState.data;
 
   const [show, setShow] = useState(false);
   const handleShow = (article) => {
@@ -29,6 +33,39 @@ const ArticleContainer = ({ articleState, setCurrentArticle, remove, loadArticle
     setShow(false);
   };
 
+  const [edit, setEdit] = useState(false);
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    tags: '',
+    image: null,
+    content: '',
+    saving: false,
+  });
+  const handleEdit = (article) => {
+    setFormData({
+      title: article.title,
+      description: article.description,
+      tags: article.tags,
+      content: article.content,
+      saving: false,
+    });
+    setEdit(true);
+  };
+  const handleEditClose = () => setEdit(false);
+  const onWriteForm = (event) => setFormData({
+    ...formData,
+    [event.target.name]: event.target.value,
+  });
+  const onWriteContent = (event) => setFormData({
+    ...formData,
+    content: event,
+  });
+  const onUploadImage = (event) => console.log(event.target.value);
+  const handleSave = () => console.log('');
+  const saving = false;
+
+
   const articlesElement = [];
   if (articleState.data.docs) {
     articleState.data.docs.forEach((article) => articlesElement.push(
@@ -41,13 +78,63 @@ const ArticleContainer = ({ articleState, setCurrentArticle, remove, loadArticle
           </div>
         </div>
         <div className="button-group">
-        <Button className="buttons-header" variant="outline-danger" onClick={() => handleShow(article)}>Excluir</Button>
+          <Button className="buttons-header" variant="outline-primary" onClick={() => handleEdit(article)}>Editar</Button>
+          <Button className="buttons-header" variant="outline-danger" onClick={() => handleShow(article)}>Excluir</Button>
         </div>
       </div>,
     ));
   }
   return (
     <>
+      <Modal dialogClassName="modal-article" backdrop="static" show={edit} onHide={handleEditClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            EDITAR ARTIGO
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Alert />
+          <Form>
+            <Form.Group>
+              <Form.Label>Título</Form.Label>
+              <Form.Control name="title" value={formData.title} onChange={(event) => onWriteForm(event)} type="text" />
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>Descrição</Form.Label>
+              <Form.Control name="description" value={formData.description} onChange={(event) => onWriteForm(event)} type="text" />
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>Tags</Form.Label>
+              <Form.Control name="tags" value={formData.tags} onChange={(event) => onWriteForm(event)} type="text" />
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>Imagem</Form.Label>
+              <Form.Control name="image" onChange={(event) => onUploadImage(event)} type="file" />
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>Conteúdo</Form.Label>
+              <ReactQuill
+                name="content"
+                formats
+                value={formData.content}
+                onChange={(event) => onWriteContent(event)}
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleEditClose}>
+            Fechar
+          </Button>
+          <Button variant="primary" onClick={handleSave}>
+            { saving ? 'Salvando' : 'Salvar'}
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>
@@ -76,8 +163,8 @@ const ArticleContainer = ({ articleState, setCurrentArticle, remove, loadArticle
           <div className="article-container-content">
             { articlesElement || <h2>Você não possui nenhum artigo!</h2> }
             <div className="next-prev-buttons">
-              <Button variant="primary" disabled={!hasPrevious} onClick={(event) => loadArticles(page-1)}>Anterior</Button>
-              <Button variant="primary" disabled={!hasNext} onClick={(event) => loadArticles(page+1)}>Próximo</Button>
+              <Button variant="primary" disabled={!hasPrevious} onClick={(event) => loadArticles(page - 1)}>Anterior</Button>
+              <Button variant="primary" disabled={!hasNext} onClick={(event) => loadArticles(page + 1)}>Próximo</Button>
             </div>
           </div>
         </div>

@@ -1,13 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import ReactHtmlParser from 'react-html-parser';
 
 import './index.css';
 
 const AnuncioSquare = ({ statusState }) => (
   <div className="ad-square">
     <div className="ad-square--Inner">
-      <img src={statusState.data.announcementSquare} alt="Anuncio" />
+      {ReactHtmlParser(statusState.data.announcementSquare)}
     </div>
   </div>
 );
