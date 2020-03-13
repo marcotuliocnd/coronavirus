@@ -1,4 +1,5 @@
 const StatusModel = require('../models/Status');
+const { validationResult } = require('express-validator');
 
 const list = async (req, res) => {
   try {
@@ -20,23 +21,12 @@ const list = async (req, res) => {
 const store = async (req, res) => {
   try {
     const { body } = req;
-    if (req.files.announcementRectangle) {
-      body.announcementRectangle = `${process.env.API}/${req.files.announcementRectangle[0].path}`;
-    } else {
-      const data = await StatusModel
-        .findOne({})
-        .sort({ createdAt: -1 });
-      body.announcementRectangle = data.announcementRectangle;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res
+        .status(400)
+        .json({ success:false, data: errors.array() });
     }
-    if (req.files.announcementSquare) {
-      body.announcementSquare = `${process.env.API}/${req.files.announcementSquare[0].path}`;
-    } else {
-      const data = await StatusModel
-        .findOne({})
-        .sort({ createdAt: -1 });
-      body.announcementSquare = data.announcementSquare;
-    }
-
     const data = await StatusModel.create(body);
 
     return res
