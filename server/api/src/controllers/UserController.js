@@ -99,7 +99,7 @@ const update = async (req, res) => {
   try {
     const { username, password } = req.body;
     
-    const checkExists = await UserModel.find({ username });
+    const checkExists = await UserModel.find({ _id: req.params.id });
     if (checkExists.length !== 0) {
       return res
         .status(403)
