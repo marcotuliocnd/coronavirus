@@ -67,6 +67,20 @@ const login = async (req, res) => {
   }
 };
 
+const list = async (req, res) => {
+  try {
+    const data = await UserModel.find();
+    return res
+      .status(200)
+      .json({ success: true, data });
+  } catch (err) {
+    console.error(err.message);
+    return res
+      .status(500)
+      .json({ success: false, error: 'Internal Server Error' });
+  }
+};
+
 function generateToken(payload = {}) {
   return jwt.sign(
     payload,
@@ -78,4 +92,5 @@ function generateToken(payload = {}) {
 module.exports = {
   register,
   login,
+  list,
 };
