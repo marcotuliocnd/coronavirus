@@ -15,12 +15,12 @@ import Logo from '../../assets/images/logo.png';
 
 import { save } from '../../actions/Article';
 import { saveStatus, loadStatus } from '../../actions/Status';
-import { logout } from '../../actions/Auth';
+import { logout, listUsers, createUser, removeUser } from '../../actions/Auth';
 
 import './index.css';
 
 const Header = ({
-  save, logout, loadStatus, authState, statusState, saveStatus,
+  save, logout, loadStatus, authState, statusState, saveStatus, listUsers, createUser, removeUser,
 }) => {
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
@@ -50,11 +50,12 @@ const Header = ({
   });
 
   const {
-    title, description, maintenance, coronaTitle, coronaText,
+    title, description, maintenance, coronaTitle, coronaText, announcementRectangle, announcementSquare,
   } = statusData;
 
   useEffect(() => {
     loadStatus();
+    listUsers();
 
     setStatusData({
       title: statusState.loading || !statusState.data.title ? '' : statusState.data.title,
@@ -142,28 +143,87 @@ const Header = ({
     dismiss: () => setModalUser(false),
     save: () => console.log('saving'),
     element: () => {
-      
+
     },
   };
 
-  const formats = [
-    'bold',
-    'color',
-    'font',
-    'italic',
-    'link',
-    'size',
-    'strike',
-    'script',
-    'underline',
-    'blockquote',
-    'header',
-    'indent',
-    'list',
-    'align',
-    'image',
-    'video',
-  ];
+  const [userForm, setUserForm] = useState({
+    username: '',
+    password: '',
+    saving: false,
+  });
+  const [userEdit, setUserEdit] = useState(false);
+  const userController = {
+    write: (event) => setUserForm({
+      ...userForm,
+      [event.target.name]: event.target.value,
+    }),
+    show: () => setUserEdit(true),
+    dismiss: () => {
+      setUserForm({
+        username: '',
+        password: '',
+      });
+      setUserEdit(false)
+    },
+    save: async () => {
+      setUserEdit({ ...userForm, saving: true });
+      try {
+        await createUser(userForm);
+        setUserForm({ ...userForm, saving: false });
+        userController.dismiss();
+        listUsers();
+      } catch (err) {
+        setUserForm({ ...userForm, saving: false });
+      }
+    },
+    remove: async (id) => {
+      await removeUser(id);
+      listUsers();
+    },
+    edit: (user) => {
+      setUserForm({
+        username: user.username,
+        password: user.password,
+      })
+
+      userController.show();
+    },
+  };
+
+  const modules = {
+    toolbar: [
+      [{ header: '1' }, { header: '2' }, { font: [] }, { align: [] }],
+      [{ size: [] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [{ list: 'ordered' }, { list: 'bullet' },
+        { indent: '-1' }, { indent: '+1' }],
+      ['link', 'image', 'video'],
+      ['clean'],
+    ],
+    clipboard: {
+      // toggle to add extra line breaks when pasting HTML:
+      matchVisual: false,
+    },
+  };
+
+  const usersElement = [];
+
+  authState.users.forEach((user) => {
+    usersElement.push(
+      <div key={user._id} className="user--Unique">
+        <span>{user.username}</span>
+        <div className="button-div">
+          <Button variant="primary" onClick={() => userController.edit(user)}>
+            Editar
+          </Button>
+          <Button variant="danger" onClick={() => userController.remove(user._id)}>
+            Excluir
+          </Button>
+        </div>
+      </div>
+    );
+  });
 
   return (
     <>
@@ -200,7 +260,7 @@ const Header = ({
               <Form.Label>Conteúdo</Form.Label>
               <ReactQuill
                 name="content"
-                formats
+                modules={modules}
                 onChange={(event) => onWriteContent(event)}
               />
             </Form.Group>
@@ -245,12 +305,12 @@ const Header = ({
 
             <Form.Group>
               <Form.Label>Anúncio 01 (Superior)</Form.Label>
-              <Form.Control name="announcementRectangle" onChange={(event) => onWriteStatus(event)} as="textarea" />
+              <Form.Control value={announcementRectangle} name="announcementRectangle" onChange={(event) => onWriteStatus(event)} as="textarea" />
             </Form.Group>
 
             <Form.Group>
               <Form.Label>Anúncio 02 (Inferior)</Form.Label>
-              <Form.Control name="announcementSquare" onChange={(event) => onWriteStatus(event)} as="textarea" />
+              <Form.Control value={announcementSquare} name="announcementSquare" onChange={(event) => onWriteStatus(event)} as="textarea" />
             </Form.Group>
 
             <Form.Group>
@@ -263,7 +323,7 @@ const Header = ({
               <ReactQuill
                 name="coronaText"
                 value={coronaText}
-                formats
+                modules={modules}
                 onChange={(event) => onWriteCorona(event)}
               />
             </Form.Group>
@@ -278,8 +338,8 @@ const Header = ({
           </Button>
         </Modal.Footer>
       </Modal>
-      
-      <Modal dialogClassName="modal-article" backdrop="static" show={modalUser} onHide={userModalController.present}>
+
+      <Modal dialogClassName="modal-article" backdrop="static" show={modalUser} onHide={userModalController.dismiss}>
         <Modal.Header closeButton>
           <Modal.Title>
             GERENCIAR USUÁRIOS
@@ -287,13 +347,47 @@ const Header = ({
         </Modal.Header>
         <Modal.Body>
           <Alert />
+          <div className="user-box">
+            <div className="user-box--Inner">
+              <h1>{ usersElement }</h1>
+            </div>
+          </div>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={userModalController.dismiss}>
             Fechar
           </Button>
-          <Button variant="primary" onClick={userModalController.save}>
-            { saving ? 'Salvando' : 'Salvar'}
+          <Button variant="primary" onClick={userController.show}>
+            Criar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal dialogClassName="modal-article" backdrop="static" show={userEdit} onHide={userController.dismiss}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            CRIAR USUÁRIO
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Alert />
+          <Form>
+            <Form.Group>
+              <Form.Label>Usuário</Form.Label>
+              <Form.Control value={userForm.username} name="username" onChange={(event) => userController.write(event)} type="text" />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Senha</Form.Label>
+              <Form.Control value={userForm.password} name="password" onChange={(event) => userController.write(event)} type="password" />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={userController.dismiss}>
+            Fechar
+          </Button>
+          <Button variant="primary" onClick={userController.save}>
+            { userForm.saving ? 'Criando' : 'Criar' }
           </Button>
         </Modal.Footer>
       </Modal>
@@ -332,6 +426,9 @@ Header.propTypes = {
   logout: PropTypes.func.isRequired,
   authState: PropTypes.object.isRequired,
   statusState: PropTypes.object.isRequired,
+  listUsers: PropTypes.func.isRequired,
+  createUser: PropTypes.func.isRequired,
+  removeUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -340,5 +437,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  save, logout, saveStatus, loadStatus,
+  save, logout, saveStatus, loadStatus, listUsers, createUser, removeUser,
 })(Header);

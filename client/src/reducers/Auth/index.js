@@ -5,6 +5,7 @@ const initialState = {
   user: JSON.parse(localStorage.getItem('@user')),
   isAuthenticated: null,
   loading: true,
+  users: [],
 };
 
 export default function (state = initialState, action) {
@@ -38,6 +39,12 @@ export default function (state = initialState, action) {
         user: null,
         isAuthenticated: false,
         loading: false,
+      };
+
+    case 'USERS_LOAD':
+      return {
+        ...state,
+        users: payload.data,
       };
 
     default:

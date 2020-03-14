@@ -46,6 +46,34 @@ body {
   justify-content: center;
 }
 
+.ql-align-center {
+  text-align: center;
+}
+
+.ql-align-right {
+  text-align: right;
+}
+
+.ql-align-justify {
+  text-align: justify;
+}
+
+.ql-size-small {
+  font-size: 8pt;
+}
+
+.ql-size-large {
+  font-size: 18pt;
+}
+
+.ql-size-huge {
+  font-size: 24pt;
+}
+
+.ql-indent-1 {
+  margin-left: 2rem;
+}
+
 @media all and (max-width: 992px) {
   .articles-show--Inner {
     width: 100%;

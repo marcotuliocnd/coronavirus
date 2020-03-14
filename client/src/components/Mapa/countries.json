@@ -73,6 +73,18 @@
   },
   {
      "timezones": [
+        "Europe/Tirane"
+     ],
+     "latlng": [
+        41,
+        20
+     ],
+     "name": "Albania",
+     "country_code": "AL",
+     "capital": "Tirana"
+  },
+  {
+     "timezones": [
         "Europe/Andorra"
      ],
      "latlng": [
@@ -351,7 +363,7 @@
         18.5,
         -63.416668
      ],
-     "name": "Saint Barthélemy",
+     "name": "São Bartolomeu",
      "country_code": "BL",
      "capital": "Gustavia"
   },
@@ -624,7 +636,7 @@
         0,
         25
      ],
-     "name": "República Democrática do Congo",
+     "name": "República do Congo",
      "country_code": "CD",
      "capital": "Kinshasa"
   },
@@ -720,7 +732,7 @@
         12.116667,
         -68.933334
      ],
-     "name": "Curaçao",
+     "name": "Curação",
      "country_code": "CW",
      "capital": "Willemstad"
   },
@@ -744,7 +756,7 @@
         19.5,
         -80.5
      ],
-     "name": "Ilhas Cayman",
+     "name": "Ilhas Caimão",
      "country_code": "KY",
      "capital": "George Town"
   },
@@ -1086,7 +1098,7 @@
         11,
         -10
      ],
-     "name": "Guinea",
+     "name": "Guiné",
      "country_code": "GN",
      "capital": "Conakry"
   },
@@ -2278,7 +2290,7 @@
         18.25,
         -66.5
      ],
-     "name": "Puerto Rico",
+     "name": "Porto Rico",
      "country_code": "PR",
      "capital": "San Juan"
   },
@@ -2367,7 +2379,7 @@
         -21.15,
         55.5
      ],
-     "name": "Reunião (departamento)",
+     "name": "Reunião",
      "country_code": "RE",
      "capital": "Saint-Denis"
   },
@@ -2824,7 +2836,7 @@
         11,
         -61
      ],
-     "name": "Trindade e Tobago",
+     "name": "Trinidad e Tobago",
      "country_code": "TT",
      "capital": "Port of Spain"
   },
@@ -3013,7 +3025,7 @@
         13.25,
         -61.2
      ],
-     "name": "são vicente e granadias",
+     "name": "São Vicente e Granadinas",
      "country_code": "VC",
      "capital": "Kingstown"
   },

@@ -48,6 +48,25 @@ export const save = (data) => async (dispatch) => {
   }
 };
 
+export const editar = (data, id) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    };
+    await api.patch (`${environment.apiUrl}/articles/${id}`, data, config);
+    dispatch(loadArticles());
+    dispatch(setAlert('Artigo editado com sucesso!', 'success'));
+  } catch (err) {
+    if (err.response && err.response.data && err.response.data.data) {
+      err.response.data.data.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+    dispatch({ type: ARTICLE_FAIL });
+    throw new Error('Falha');
+  }
+};
+
 export const show = (id) => async (dispatch) => {
   try {
     const response = await api.get(`${environment.apiUrl}/articles/${id}`);

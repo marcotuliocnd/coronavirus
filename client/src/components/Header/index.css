@@ -51,3 +51,27 @@
   color: #247BA0 !important;
   margin-left: 1rem;
 }
+
+.ql-align-center {
+  text-align: center;
+}
+
+.user-box {
+  width: 100%;
+}
+
+.user-box--Inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.user--Unique {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-div button {
+  margin: 0 1rem;
+}

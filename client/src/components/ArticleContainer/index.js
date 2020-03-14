@@ -6,14 +6,14 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { loadArticles, setCurrentArticle, remove } from '../../actions/Article';
+import { loadArticles, setCurrentArticle, remove, editar } from '../../actions/Article';
 
 import Alert from '../Alert';
 
 import './index.css';
 
 const ArticleContainer = ({
-  articleState, setCurrentArticle, remove, loadArticles,
+  articleState, setCurrentArticle, remove, loadArticles, editar,
 }) => {
   const [loading, setLoading] = useState(false);
   const hasPrevious = articleState.data.hasPrevPage;
@@ -40,6 +40,7 @@ const ArticleContainer = ({
     tags: '',
     image: null,
     content: '',
+    id: '',
     saving: false,
   });
   const handleEdit = (article) => {
@@ -48,6 +49,7 @@ const ArticleContainer = ({
       description: article.description,
       tags: article.tags,
       content: article.content,
+      id: article._id,
       saving: false,
     });
     setEdit(true);
@@ -62,7 +64,22 @@ const ArticleContainer = ({
     content: event,
   });
   const onUploadImage = (event) => console.log(event.target.value);
-  const handleSave = () => console.log('');
+  const handleSave = async () => {
+    setFormData({ ...formData, saving: true });
+    const multipart = new FormData();
+    multipart.append('title', formData.title);
+    multipart.append('description', formData.description);
+    multipart.append('tags', formData.tags);
+    multipart.append('content', formData.content);
+    multipart.append('file', formData.image);
+    try {
+      await editar(multipart, formData.id);
+      setFormData({ ...formData, saving: false });
+      setEdit(false);
+    } catch (err) {
+      setFormData({ ...formData, saving: false });
+    }
+  };
   const saving = false;
 
 
@@ -84,6 +101,22 @@ const ArticleContainer = ({
       </div>,
     ));
   }
+
+  const modules = {
+    toolbar: [
+      [{ header: '1' }, { header: '2' }, { font: [] }, { align: [] }],
+      [{ size: [] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [{ list: 'ordered' }, { list: 'bullet' },
+        { indent: '-1' }, { indent: '+1' }],
+      ['link', 'image', 'video'],
+      ['clean'],
+    ],
+    clipboard: {
+      // toggle to add extra line breaks when pasting HTML:
+      matchVisual: false,
+    },
+  };
   return (
     <>
       <Modal dialogClassName="modal-article" backdrop="static" show={edit} onHide={handleEditClose}>
@@ -119,8 +152,8 @@ const ArticleContainer = ({
               <Form.Label>Conteúdo</Form.Label>
               <ReactQuill
                 name="content"
-                formats
                 value={formData.content}
+                modules={modules}
                 onChange={(event) => onWriteContent(event)}
               />
             </Form.Group>
@@ -131,7 +164,7 @@ const ArticleContainer = ({
             Fechar
           </Button>
           <Button variant="primary" onClick={handleSave}>
-            { saving ? 'Salvando' : 'Salvar'}
+            { formData.saving ? 'Salvando' : 'Salvar'}
           </Button>
         </Modal.Footer>
       </Modal>
@@ -178,10 +211,11 @@ ArticleContainer.propTypes = {
   articleState: PropTypes.object.isRequired,
   remove: PropTypes.func.isRequired,
   loadArticles: PropTypes.func.isRequired,
+  editar: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   articleState: state.articleReducer,
 });
 
-export default connect(mapStateToProps, { setCurrentArticle, remove, loadArticles })(ArticleContainer);
+export default connect(mapStateToProps, { setCurrentArticle, remove, loadArticles, editar })(ArticleContainer);

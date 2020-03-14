@@ -1,5 +1,5 @@
-const ArticleModel = require('../models/Article');
 const { validationResult } = require('express-validator');
+const ArticleModel = require('../models/Article');
 
 const list = async (req, res) => {
   const { page = 1, search } = req.query;
@@ -26,14 +26,14 @@ const store = async (req, res) => {
     const errors = validationResult(req);
     const { body, file } = req;
 
-    if (!errors.isEmpty() || !file){
-      let errorsArray = errors.array();
+    if (!errors.isEmpty() || !file) {
+      const errorsArray = errors.array();
 
-      if(!file){
+      if (!file) {
         errorsArray.push({
-          "msg": "Você deve enviar uma imagem.",
-          "param": "file",
-          "location": "body"
+          msg: 'Você deve enviar uma imagem.',
+          param: 'file',
+          location: 'body',
         });
       }
 
@@ -73,25 +73,23 @@ const remove = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-
     const errors = validationResult(req);
     const { body, file } = req;
 
-    if (!errors.isEmpty()){
+    if (!errors.isEmpty()) {
       return res
         .status(400)
         .json({ success: false, data: errors });
     }
-    if(file){
+    if (file) {
       body.image = `${process.env.API}/${file.path}`;
       body.link = `${String(body.title).toLowerCase().replace(/ /g, '-')}.chtml`;
     }
-    
+
     const data = await ArticleModel.updateOne({ _id: req.params.article }, body);
     return res
       .status(200)
       .json({ success: true, data });
-
   } catch (err) {
     console.error(err.message);
     return res

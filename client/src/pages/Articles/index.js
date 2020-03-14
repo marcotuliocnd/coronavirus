@@ -5,6 +5,7 @@ import ReactHtmlParser from 'react-html-parser';
 import Helmet from 'react-helmet';
 import moment from 'moment';
 import { show } from '../../actions/Article';
+import { loadStatus } from '../../actions/Status';
 import 'moment/locale/pt-br';
 
 import Loading from '../../components/Loading';
@@ -17,10 +18,11 @@ import Anuncio from '../../components/Anuncio';
 import './index.css';
 
 const Articles = ({
-  match, show, article, loading,
+  match, show, article, loading, loadStatus, statusState,
 }) => {
   useEffect(() => {
     show(match.params.article);
+    loadStatus();
   }, []);
 
   function formatDate(datetime) {
@@ -47,7 +49,7 @@ const Articles = ({
             <hr />
           </div>
           <div className="articles-content">
-            { ReactHtmlParser(article.content) }
+            { ReactHtmlParser(article.content.replace('[ANUNCIO 01]', statusState.data ? statusState.data.announcementRectangle : '').replace('[ANUNCIO 02]', statusState.data ? statusState.data.announcementSquare : '')) }
           </div>
           <hr />
           <Anuncio />
@@ -60,13 +62,16 @@ const Articles = ({
 
 Articles.propTypes = {
   show: PropTypes.func.isRequired,
+  loadStatus: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
   article: PropTypes.object,
+  statusState: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
   article: state.articleReducer.currentArticle,
   loading: state.articleReducer.loadingOne,
+  statusState: state.statusReducer,
 });
 
-export default connect(mapStateToProps, { show })(Articles);
+export default connect(mapStateToProps, { show, loadStatus })(Articles);
