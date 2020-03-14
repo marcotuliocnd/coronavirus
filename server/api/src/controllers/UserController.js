@@ -69,7 +69,7 @@ const login = async (req, res) => {
 
 const list = async (req, res) => {
   try {
-    const data = await UserModel.find();
+    const data = await UserModel.find().select('-password');
     return res
       .status(200)
       .json({ success: true, data });
