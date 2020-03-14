@@ -69,7 +69,7 @@ const login = async (req, res) => {
 
 const list = async (req, res) => {
   try {
-    const data = await UserModel.find();
+    const data = await UserModel.find().select('-password');
     return res
       .status(200)
       .json({ success: true, data });
@@ -78,6 +78,52 @@ const list = async (req, res) => {
     return res
       .status(500)
       .json({ success: false, error: 'Internal Server Error' });
+  }
+};
+
+const remove = async (req, res) => {
+  try {
+    const data = await UserModel.deleteOne({ _id: req.params.id });
+    return res
+      .status(200)
+      .json({ success: true, data });
+  } catch (err) {
+    console.error(err.message);
+    return res
+      .status(500)
+      .json({ success: false, data: 'Internal Server Error' });
+  }
+};
+
+const update = async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    
+    const checkExists = await UserModel.find({ _id: req.params.id });
+    if (checkExists.length !== 0) {
+      return res
+        .status(403)
+        .json({ success: false, data: 'Usuário já existe!' });
+    }
+
+    const passSalt = await bcrypt.genSalt();
+    const passCrypted = await bcrypt.hash(password, passSalt);
+    
+    const params = {
+      username,
+      password: passCrypted
+    };
+    
+    const data = await UserModel.updateOne({ _id: req.params.id }, params);
+    return res
+      .status(200)
+      .json({ success: true, data });
+
+  } catch (err) {
+    console.error(err.message);
+    return res
+      .status(500)
+      .json({ success: false, data: 'Internal Server Error' });
   }
 };
 
@@ -93,4 +139,6 @@ module.exports = {
   register,
   login,
   list,
+  remove,
+  update
 };

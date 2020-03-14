@@ -7,11 +7,13 @@ const parseData = (countryInfo) => {
     return;
   }
 
-  const country = countryInfo[Object.keys(countryInfo)[0]].split('(')[0].split('[')[0] || '';
+  let country = countryInfo[Object.keys(countryInfo)[0]].split('(')[0].split('[')[0] || '';
   const infecteds = countryInfo[Object.keys(countryInfo)[1]].replace('.', '') || 0;
   const deaths = countryInfo[Object.keys(countryInfo)[2]].replace('.', '') || 0;
   const survivors = countryInfo[Object.keys(countryInfo)[3]].replace('.', '') || 0;
   
+  if(country == 'China ') country += '(continental)';
+
   const parsedCountryInfo = {
     country,
     totalInfecteds: parseInt(infecteds, 10),
