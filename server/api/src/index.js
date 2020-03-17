@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const fs = require('fs');
 const https = require('https');
+const expressSitemap = require('express-sitemap-xml');
 
 const connectDb = require('./config/database');
 
@@ -32,6 +33,7 @@ app.use('/totals', require('./routes/TotalRoutes'));
 app.use('/articles', require('./routes/ArticleRoutes'));
 app.use('/coordinates', require('./routes/CoordinatesRoutes'));
 app.use('/', require('./routes/StatusRoutes'));
+app.use(expressSitemap(require('./controllers/SitemapController'), 'https://coronavirus.com.br');
 
 if (process.env.NODE_ENV === 'development') {
   app.listen(process.env.PORT, () => {
