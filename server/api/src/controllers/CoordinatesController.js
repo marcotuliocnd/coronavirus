@@ -2,12 +2,11 @@ const CoordinatesModel = require('../models/Coordinates');
 
 
 const formatToCoordinatesJson = (countries) => {
-  const countryCoordinates = {};
+  const countryCoordinates = [];
   for (const country of countries) {
     const name = country.country;
-    const lat = country.lat;
-    const lng = country.lng;
-    countryCoordinates[name] = { lat, lng };
+    const latlng = [ country.lat, country.lng ] ;
+    countryCoordinates.push({ name, latlng });
   }
   return countryCoordinates;
 };
