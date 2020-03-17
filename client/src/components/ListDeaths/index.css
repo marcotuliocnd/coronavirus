@@ -1,0 +1,21 @@
+.list-deaths {
+  height: 500px;
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+.list-deaths--Inner {
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.list-deaths--Inner ul {
+  list-style: none;
+}
+.list-deaths--Inner li {
+  cursor: pointer;
+}

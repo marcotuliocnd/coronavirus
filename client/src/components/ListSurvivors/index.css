@@ -1,0 +1,22 @@
+.list-survivors {
+  height: 300px;
+  max-height: 300px;
+  overflow-y: scroll;
+}
+
+.list-survivors--Inner {
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.list-survivors--Inner ul {
+  list-style: none;
+}
+
+.list-survivors--Inner li {
+  cursor: pointer;
+}

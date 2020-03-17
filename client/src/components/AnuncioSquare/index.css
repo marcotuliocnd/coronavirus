@@ -1,0 +1,10 @@
+.ad-square {
+}
+
+.ad-square--Inner {
+  max-height: 350px;
+}
+
+.ad-square--Inner img {
+  height: 100%;
+}

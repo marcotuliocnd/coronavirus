@@ -1,0 +1,44 @@
+.pageMaintenance {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 100px;
+}
+
+.maintenance-text {
+  color: #247BA0;
+  font-size: 8rem;
+  font-weight: bold;
+}
+
+.error-description {
+  color: #a0a0a0;
+}
+
+.pageMaintenanceImage {
+  width: 700px;
+}
+
+.pageMaintenanceText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center
+}
+
+@media all and (max-width: 992px) {
+  .pageMaintenanceImage {
+    width: 300px;
+  }
+
+  .maintenance-text {
+    font-size: 3rem;
+  }
+
+  .pageMaintenanceText {
+    width: 250px;
+  }
+}
+

@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color:#ede9e0;
+  color:#393D3F;
+}
+
+.sombra-projetada {
+  min-height: 150px;
+  margin-top: 2rem;
+  background: #fff;
+  -webkit-box-shadow: 0px 0px 24px 8px rgba(0,0,0,0.1);
+  -moz-box-shadow: 0px 0px 24px 8px rgba(0,0,0,0.1);
+  box-shadow: 0px 0px 24px 8px rgba(0,0,0,0.1);
+  border-radius: 5px;
+}
+
+.sombra {
+  margin-top: 2rem;
+  -webkit-box-shadow: 0px 0px 24px 8px rgba(0,0,0,0.1);
+  -moz-box-shadow: 0px 0px 24px 8px rgba(0,0,0,0.1);
+  box-shadow: 0px 0px 24px 8px rgba(0,0,0,0.1);
+  background: #fff;
+  border-radius: 5px;
+}
+
+.box-title {
+  text-transform: uppercase;
+  color: #247BA0 !important;
+  font-size: 1rem !important;
+  font-weight: bold !important;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 2px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: #74afc7;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #62929e;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #247ba0;
+}
+::-webkit-scrollbar-track {
+  background: #fff;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track:hover {
+  background: #fff;
+}
+::-webkit-scrollbar-track:active {
+  background: #fff;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}

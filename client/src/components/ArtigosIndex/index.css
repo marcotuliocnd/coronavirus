@@ -1,0 +1,128 @@
+.artigos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.artigos--Inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  width: 100%;
+}
+
+.artigos--Inner ul {
+  list-style: none;
+}
+
+.article {
+  margin: 2rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.article--Inner {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 800px;
+}
+
+.list {
+  width: 100%;
+}
+
+.article--Inner img {
+  object-fit: cover;
+  width: 150px;
+  height: 150px;
+  margin-right: 2rem;
+}
+
+.article--Inner a {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.article--Inner .datetime {
+  color: #a1a1a1;
+  font-size: .8rem;
+}
+
+.list li {
+  border-bottom: 1px solid #ccc;
+}
+
+.list li:last-child {
+  border: none;
+}
+
+.articles-title {
+  font-size: 1rem !important;
+}
+
+.prev-next {
+  padding: 10px;
+  margin: 1rem;
+  cursor: pointer;
+}
+
+.pagination {
+  color: hsl(0, 0%, 61%);
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.active {
+  color: #247BA0;
+}
+
+.pages {
+  margin: 1rem;
+  padding: 10px;
+  cursor: pointer;
+}
+
+@media all and (max-width: 992px) {
+  .article--Inner {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+  }
+
+  .article--Inner img {
+    object-fit: cover;
+    width: 250px;
+    margin: 0;
+  }
+
+  .prev-next-buttons {
+    width: auto;
+  }
+
+  .prev-next {
+    padding: 5px;
+    cursor: pointer;
+  }
+  
+  .pagination {
+    color: hsl(0, 0%, 61%);
+    font-size: .8rem;
+    font-weight: bold;
+  }
+  
+  .active {
+    color: #247BA0;
+  }
+  
+  .pages {
+    padding: 5px;
+    cursor: pointer;
+  }
+}

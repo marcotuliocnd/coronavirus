@@ -1,0 +1,13 @@
+.ad {
+}
+
+.ad--Inner {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+}
+
+.ad--Inner img {
+  height: 100%;
+}
