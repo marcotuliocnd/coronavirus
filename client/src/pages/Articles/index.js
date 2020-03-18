@@ -66,6 +66,13 @@ Articles.propTypes = {
   match: PropTypes.object.isRequired,
   article: PropTypes.object,
   statusState: PropTypes.object,
+  loading: PropTypes.bool,
+};
+
+Articles.defaultProps = {
+  article: {},
+  statusState: {},
+  loading: true,
 };
 
 const mapStateToProps = (state) => ({

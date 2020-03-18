@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import truncate from 'truncate';
 import { Link } from 'react-router-dom';
 import { Button, Modal, Form } from 'react-bootstrap';
@@ -6,7 +6,12 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { loadArticles, setCurrentArticle, remove, editar } from '../../actions/Article';
+import ReactPaginate from 'react-paginate';
+import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  loadArticles, setCurrentArticle, remove, editar,
+} from '../../actions/Article';
 
 import Alert from '../Alert';
 
@@ -16,9 +21,6 @@ const ArticleContainer = ({
   articleState, setCurrentArticle, remove, loadArticles, editar,
 }) => {
   const [loading, setLoading] = useState(false);
-  const hasPrevious = articleState.data.hasPrevPage;
-  const hasNext = articleState.data.hasNextPage;
-  const { page } = articleState.data;
 
   const [show, setShow] = useState(false);
   const handleShow = (article) => {
@@ -80,7 +82,6 @@ const ArticleContainer = ({
       setFormData({ ...formData, saving: false });
     }
   };
-  const saving = false;
 
 
   const articlesElement = [];
@@ -195,9 +196,26 @@ const ArticleContainer = ({
           </div>
           <div className="article-container-content">
             { articlesElement || <h2>Você não possui nenhum artigo!</h2> }
-            <div className="next-prev-buttons">
-              <Button variant="primary" disabled={!hasPrevious} onClick={(event) => loadArticles(page - 1)}>Anterior</Button>
-              <Button variant="primary" disabled={!hasNext} onClick={(event) => loadArticles(page + 1)}>Próximo</Button>
+            <div className="next-prev">
+              <ReactPaginate
+                previousLabel={(
+                  <FontAwesomeIcon icon={faArrowLeft} />
+                )}
+                nextLabel={(
+                  <FontAwesomeIcon icon={faArrowRight} />
+                )}
+                breakLabel="..."
+                breakClassName="prev-next"
+                pageCount={articleState.data.totalPages}
+                onPageChange={({ selected }) => loadArticles(1 + selected)}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={0}
+                containerClassName="pagination"
+                pageClassName="pages"
+                nextClassName="prev-next"
+                previousClassName="prev-next"
+                activeClassName="active"
+              />
             </div>
           </div>
         </div>
@@ -218,4 +236,6 @@ const mapStateToProps = (state) => ({
   articleState: state.articleReducer,
 });
 
-export default connect(mapStateToProps, { setCurrentArticle, remove, loadArticles, editar })(ArticleContainer);
+export default connect(mapStateToProps, {
+  setCurrentArticle, remove, loadArticles, editar,
+})(ArticleContainer);

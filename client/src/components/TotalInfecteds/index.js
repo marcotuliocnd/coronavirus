@@ -16,7 +16,7 @@ const TotalInfecteds = ({ totalState }) => {
 
   function formatDate(datetime) {
     moment.locale('pt-br');
-    return moment(datetime).format('DD [de] MMMM [às] hh:mm');
+    return moment(datetime).format('DD [de] MMMM [às] HH:mm');
   }
 
   return (

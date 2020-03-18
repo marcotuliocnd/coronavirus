@@ -18,7 +18,7 @@ const Chart = ({ totalState }) => {
 
     return 0;
   });
-  const categories = countryData.map((day) => moment(day.createdAt).format('DD/MM/YYYY'));
+  const categories = countryData.map((day) => moment(day.createdAt).add(3, 'hours').format('DD/MM/YYYY'));
   const infecteds = countryData.map((day) => day.totalInfecteds);
   const survivors = countryData.map((day) => day.totalSurvivors);
   const deaths = countryData.map((day) => day.totalDeaths);

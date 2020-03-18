@@ -285,6 +285,18 @@
   },
   {
      "timezones": [
+        "Africa/Porto-Novo"
+     ],
+     "latlng": [
+        9.5,
+        2.25
+     ],
+     "name": "Benim",
+     "country_code": "BJ",
+     "capital": "Porto-Novo"
+  },
+  {
+     "timezones": [
         "Africa/Ouagadougou"
      ],
      "latlng": [
@@ -774,6 +786,18 @@
   },
   {
      "timezones": [
+        "Asia/Nicosia"
+     ],
+     "latlng": [
+        35,
+        33
+     ],
+     "name": "Chipre do Norte",
+     "country_code": "CY",
+     "capital": "Nicosia"
+  },
+  {
+     "timezones": [
         "Europe/Prague"
      ],
      "latlng": [
@@ -1186,6 +1210,21 @@
         -40
      ],
      "name": "Groenlândia",
+     "country_code": "GL",
+     "capital": "Nuuk"
+  },
+  {
+     "timezones": [
+        "America/Godthab",
+        "America/Danmarkshavn",
+        "America/Scoresbysund",
+        "America/Thule"
+     ],
+     "latlng": [
+        72,
+        -40
+     ],
+     "name": "Gronelândia",
      "country_code": "GL",
      "capital": "Nuuk"
   },
@@ -2030,6 +2069,18 @@
   },
   {
      "timezones": [
+        "Indian/Mayotte"
+     ],
+     "latlng": [
+        -12.833333,
+        45.166668
+     ],
+     "name": "Maiote",
+     "country_code": "YT",
+     "capital": "Mamoudzou"
+  },
+  {
+     "timezones": [
         "Africa/Windhoek"
      ],
      "latlng": [
@@ -2049,6 +2100,18 @@
         165.5
      ],
      "name": "Nova Caledônia",
+     "country_code": "NC",
+     "capital": "Nouméa"
+  },
+  {
+     "timezones": [
+        "Pacific/Noumea"
+     ],
+     "latlng": [
+        -21.5,
+        165.5
+     ],
+     "name": "Nova Caledónia",
      "country_code": "NC",
      "capital": "Nouméa"
   },
@@ -2573,6 +2636,18 @@
         49
      ],
      "name": "Somália",
+     "country_code": "SO",
+     "capital": "Mogadishu"
+  },
+  {
+     "timezones": [
+        "Africa/Mogadishu"
+     ],
+     "latlng": [
+        10,
+        49
+     ],
+     "name": "Somalia",
      "country_code": "SO",
      "capital": "Mogadishu"
   },

@@ -24,4 +24,13 @@ export const setColor = (country) => async (dispatch) => {
   });
 };
 
+export const loadCoordinates = (country) => async (dispatch) => {
+  try {
+    const data = await axios.get(`${environment.apiUrl}/coordinates`);
+    return data;
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
 export default loadCountries;

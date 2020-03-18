@@ -71,6 +71,12 @@
   flex-direction: row;
 }
 
+.next-prev {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media all and (max-width: 992px) {
   .article-container-content {
     width: 100%;

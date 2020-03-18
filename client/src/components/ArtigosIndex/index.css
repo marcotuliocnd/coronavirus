@@ -38,9 +38,11 @@
 
 .article--Inner img {
   object-fit: cover;
-  width: 150px;
-  height: 150px;
+  min-width: 300px;
+  max-width: 300px;
+  height: 230px;
   margin-right: 2rem;
+  border-radius: 10px;
 }
 
 .article--Inner a {

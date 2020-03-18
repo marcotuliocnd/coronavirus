@@ -8,16 +8,16 @@ import './index.css';
 const Mapa = ({ countryState }) => {
   const [viewport, setViewport] = useState({
     zoom: 2,
-    width: "100%",
-    height: "500px",
-  })
+    width: '100%',
+    height: '500px',
+  });
   let didMount = false;
   const res = countryState;
   const featureCollection = {
     type: 'FeatureCollection',
     features: [
 
-     ],
+    ],
   };
 
   for (let i = 0; i < res.data.length; i += 1) {
@@ -48,7 +48,7 @@ const Mapa = ({ countryState }) => {
     feature.properties = res.data[i];
     featureCollection.features.push(feature);
   }
-  setTimeout(() => didMount = true, 50)
+  setTimeout(() => { didMount = true; }, 50);
   return (
     <>
       <div className="map sombra">
@@ -57,7 +57,7 @@ const Mapa = ({ countryState }) => {
             {...viewport}
             mapboxApiAccessToken="pk.eyJ1IjoiZ2V0dWxpb2JyIiwiYSI6ImNrN2RnZ3ptZTAyanAzc2xtZ2dsMXp5OHgifQ.MRsV8pDC1wpK_K4SLpBGSA"
             mapStyle="mapbox://styles/mapbox/streets-v9"
-            onViewportChange={(viewport) => {if (didMount) setViewport(viewport)}}
+            onViewportChange={(viewport) => { if (didMount) setViewport(viewport); }}
           >
             <Source id="coronaLayer" type="geojson" data={featureCollection}>
               <Layer

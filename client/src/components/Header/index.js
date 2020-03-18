@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import ReactQuill, { Quill } from 'react-quill';
+import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 import Alert from '../Alert';
@@ -15,7 +15,9 @@ import Logo from '../../assets/images/logo.png';
 
 import { save } from '../../actions/Article';
 import { saveStatus, loadStatus } from '../../actions/Status';
-import { logout, listUsers, createUser, removeUser } from '../../actions/Auth';
+import {
+  logout, listUsers, createUser, removeUser,
+} from '../../actions/Auth';
 
 import './index.css';
 
@@ -78,13 +80,6 @@ const Header = ({
     ...statusData,
     coronaText: event,
   });
-
-  const onUploadAd = (event) => {
-    setStatusData({
-      ...statusData,
-      [event.target.name]: event.target.files[0],
-    });
-  };
 
   const handleStatusSave = async () => {
     setStatusData({ ...statusData, savingStatus: true });
@@ -164,7 +159,7 @@ const Header = ({
         username: '',
         password: '',
       });
-      setUserEdit(false)
+      setUserEdit(false);
     },
     save: async () => {
       setUserEdit({ ...userForm, saving: true });
@@ -185,7 +180,7 @@ const Header = ({
       setUserForm({
         username: user.username,
         password: user.password,
-      })
+      });
 
       userController.show();
     },
@@ -221,7 +216,7 @@ const Header = ({
             Excluir
           </Button>
         </div>
-      </div>
+      </div>,
     );
   });
 

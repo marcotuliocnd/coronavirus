@@ -5,18 +5,15 @@ import 'moment/locale/pt-br';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { loadArticles } from '../../actions/Article';
 import ReactPaginate from 'react-paginate';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { loadArticles } from '../../actions/Article';
 
 import './index.css';
 
 const ArtigosIndex = ({ articleState, loadArticles }) => {
   const artigos = articleState.data.docs;
-  const hasPrevious = articleState.data.hasPrevPage;
-  const hasNext = articleState.data.hasNextPage;
-  const page = articleState.data.page;
   const listArtigosElement = [];
 
   function formatDate(datetime) {
@@ -56,17 +53,17 @@ const ArtigosIndex = ({ articleState, loadArticles }) => {
           nextLabel={(
             <FontAwesomeIcon icon={faArrowRight} />
           )}
-          breakLabel={'...'}
-          breakClassName={'prev-next'}
+          breakLabel="..."
+          breakClassName="prev-next"
           pageCount={articleState.data.totalPages}
           onPageChange={({ selected }) => loadArticles(1 + selected)}
           marginPagesDisplayed={2}
           pageRangeDisplayed={0}
-          containerClassName={'pagination'}
-          pageClassName={'pages'}
-          nextClassName={'prev-next'}
-          previousClassName={'prev-next'}
-          activeClassName={'active'}
+          containerClassName="pagination"
+          pageClassName="pages"
+          nextClassName="prev-next"
+          previousClassName="prev-next"
+          activeClassName="active"
         />
       </div>
     </div>

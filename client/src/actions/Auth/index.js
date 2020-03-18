@@ -1,8 +1,10 @@
-import api from '../Api'
+import api from '../Api';
 import environment from '../../environments/environment';
 import setAlert from '../Alert';
 
-import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, USER_LOADED } from '../Types';
+import {
+  LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, USER_LOADED,
+} from '../Types';
 
 export const login = (data) => async (dispatch) => {
   try {
@@ -19,30 +21,30 @@ export const login = (data) => async (dispatch) => {
 };
 
 export const setAuthToken = (token) => {
-  if(token) {
-    api.defaults.headers.common['authorization'] = token;
+  if (token) {
+    api.defaults.headers.common.authorization = token;
   } else {
-    delete api.defaults.headers.common['authorization'];
+    delete api.defaults.headers.common.authorization;
   }
-}
+};
 
-export const loadUser = () => async dispatch => {
+export const loadUser = () => async (dispatch) => {
   if (localStorage.getItem('@token')) {
     const payload = {
       token: localStorage.getItem('@token'),
-      user: JSON.parse(localStorage.getItem('@user'))
-    }
+      user: JSON.parse(localStorage.getItem('@user')),
+    };
     setAuthToken(localStorage.getItem('@token'));
     dispatch({
       type: USER_LOADED,
-      payload
+      payload,
     });
   } else {
     dispatch({
       type: LOGOUT,
     });
   }
-}
+};
 
 export const listUsers = () => async (dispatch) => {
   try {
@@ -59,7 +61,7 @@ export const listUsers = () => async (dispatch) => {
 
 export const createUser = (data) => async (dispatch) => {
   try {
-    const response = await api.post(`${environment.apiUrl}/auth/register`, data);
+    await api.post(`${environment.apiUrl}/auth/register`, data);
     dispatch(setAlert('Usuário criado com sucesso!', 'success'));
   } catch (err) {
     dispatch(setAlert(err.response.data.data, 'danger'));
@@ -69,7 +71,7 @@ export const createUser = (data) => async (dispatch) => {
 
 export const removeUser = (id) => async (dispatch) => {
   try {
-    const response = await api.delete(`${environment.apiUrl}/auth/${id}`);
+    await api.delete(`${environment.apiUrl}/auth/${id}`);
     dispatch(setAlert('Usuário excluído com sucesso!', 'success'));
   } catch (err) {
     dispatch(setAlert(err.response.data.data, 'danger'));
